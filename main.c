@@ -23,19 +23,71 @@ int             main(void)
     void    *mlx;
     void    *mlx_win;
     t_data  img;
-    int i;
+    int i, y, color, smesh;
 
     i = 3;
+    y = 1;
+    color = 0x000000cc;
+    smesh = 0;
     mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 520, 580, "Hello world!");
-    img.img = mlx_new_image(mlx, 520, 580);
+    mlx_win = mlx_new_window(mlx, 1020, 1080, "Hello world!");
+    img.img = mlx_new_image(mlx, 1020, 1080);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                  &img.endian);
     my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-    while (i < 400)
+
+
+    while (y < 100)
     {
-        my_mlx_pixel_put(&img, sqrt(i) + i , i, 0x00FF0000 + i + 150);
-        i++;
+        i = 300;
+        while (i  < 600 )
+        {
+            my_mlx_pixel_put(&img, y, i, 0x909900);
+            i++;
+        }
+        y++;
+        smesh++;
+    }
+
+
+
+
+    while (y < 250)
+    {
+        i = 200 + smesh;
+        while (smesh < i && i  < 700 - smesh)
+        {
+            my_mlx_pixel_put(&img, y, i, color);
+            i++;
+        }
+        y++;
+        smesh++;
+        color = color - 0x00000001;
+    }
+    y = 270;
+    smesh--;
+    while (y < 420)
+    {
+        i = 200 + smesh;
+        while (smesh > 1 && i  < 700 - smesh)
+        {
+            my_mlx_pixel_put(&img, y, i, color);
+            i++;
+        }
+        y++;
+        smesh--;
+        color = color + 0x00000001;
+    }
+    while (y < 1000)
+    {
+        i = 300;
+        while (i  < 600 )
+        {
+            my_mlx_pixel_put(&img, y, i, 0x909900);
+            i++;
+        }
+        y++;
+        smesh++;
     }
 
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
