@@ -2,110 +2,104 @@
 
 # include "parser.h"
 
-char    **ft_realloc_array(char **map_array, int str_n, char *line)
+int    ft_realloc_array(t_prm *params, int str_n)
 {
-    char    **temp;
-    int  i;
-    
-    i = 0;
-    if (!(temp = (char**)malloc((str_n + 1) * sizeof(char*))))
-	    return (NULL);
+	char    **temp;
+	int  i;
+
+	i = 0;
+	if (!(temp = (char**)malloc((str_n + 1) * sizeof(char*))))
+	{
+		// очистить массив на n строк и строку
+		return (200);
+	}
 	while (str_n > i)
 	{
-	    temp[i] = map_array[i];
-	    i++;
+		temp[i] = params->map_array[i];
+		i++;
 	}
-	temp[i] = line;
+	temp[i] = params->line;
+	params->map_array = temp;
+	params->line = NULL;
+	temp = NULL;
 	//free(map_array);
-    //map_array = NULL;
-    return (temp);
+	//map_array = NULL;
+	return (0);
 }
 
-char *ft_realloc_line(char *array, size_t max_width)
+int		ft_realloc_line(t_prm *params, int str_n, size_t max_width)
 {
-    size_t  i;
-    char    *temp;
-    
-    i = 0;
-    if (!(temp = (char*)malloc((max_width + 1) * sizeof(char))))
-	    return (NULL);
-    while (array[i] != '\0')
-    {
-        temp[i] = array[i];
-        i++;
-    }
-    while (i < max_width)
-    {
-        temp[i] = ' ';
-        i++;
-    }
-    temp[i] = '\0';
-   // free(array);
-    //array = NULL;
-    return (temp);
+	int  i;
+	char    *temp;
+
+	i = 0;
+
+
+	if (!(temp = (char*)malloc((max_width + 1) * sizeof(char))))
+		return (200); ////обработать ошибку
+	while (params->map_array[str_n][i] != '\0')
+		temp[i++] = params->map_array[str_n][i];
+	while (i < max_width)
+		temp[i++] = ' ';
+	temp[i] = '\0';
+
+	free(params->map_array[str_n]);
+	params->map_array[str_n] = temp;
+	temp = NULL;
+	return (0);
 }
 
-int parser()
+int parser(char *argv, t_prm *params)
 {
-	char    *line;
-	int     id = 0;
+	int     id;
 	int     str_n;
-	int     height_array;
-	t_str   *li;
-	size_t  max_width;
-	size_t  width_line;
-	char    **map_array;
-	
-    height_array = 0;
-    max_width = 0;
-    str_n = 0;
-	line = "";
-	int fd = open("test.cub", O_RDONLY);
-    
-     
-	while ((id = get_next_line(fd, &line))>0  )
+	int		fd;
+
+	str_n = 0;
+	if ((fd = open(argv, O_RDONLY)) < 0)   ///// obrabotat oshibky
+		return (fd);
+	while ((id = get_next_line(fd, &params->line)) >= 0)
 	{
-		printf("                                | # >%d< | | >%d< | >%s<\n", str_n, id, line);
-		
-		width_line = ft_strlen(line);
-		if (width_line > max_width)
-		    max_width = width_line;
-		if (!(map_array = ft_realloc_array(map_array, str_n, line)))
+		printf("        1                        | # >%d< | | >%d< | >%s<\n", str_n, id, params->line);
+		if (ft_strlen(ft_strtrim(params->line, " ")) > 0) ///////неправильно есть маллок
 		{
-		    //free all map_array;
-		    return (0);
+			if ((params->exit = ft_realloc_array(params, str_n)))
+				return (params->exit); /// обработать ошибк
+			str_n++;
 		}
-		 //printf(">%s<\n", map_array[str_n]);
-		 if (id == 0)
-		 	break ;
+		if (id == 0)
+			break ;
+	}
+
+
+
+
+
+
+/*
+	while(str_n >= 0)
+	{
+		if((ft_strlen(params->map_array[str_n])) < max_width)
+		{
+			if((params->exit = ft_realloc_line(params, str_n, max_width)))
+			{
+				//free all map_array;
+				return (params->exit);
+			}
+		}
+		str_n--;
+	}
+*/
+
+
+
+
+
+	str_n = 0;
+	while (params->map_array[str_n])
+	{
+		printf("!!! >%s<\n", params->map_array[str_n]);
 		str_n++;
 	}
-
-    //printf("!!! >%s<\n", map_array[str_n]);
-    height_array = str_n;
-    while(str_n >= 0)
-    {
-        if(ft_strlen(map_array[str_n]) < max_width)
-        {
-            if(!(map_array[str_n] = ft_realloc_line(map_array[str_n], max_width)))
-           	{
-	            //free all map_array;
-	            return (0);
-		    }
-        }
-        str_n--;
-    }
-    
-    str_n++;
-    while (str_n <= height_array)
-    {
-        printf("!!! >%s<\n", map_array[str_n]);
-        str_n++;
-    }
-    
-    
-    
-    
-    //printf("!!! >%d<\n", max_width);
 	return (0);
 }
