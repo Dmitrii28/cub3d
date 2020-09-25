@@ -33,6 +33,7 @@ typedef	struct	s_prm
     int			floor_txr;
     int			ceiling_txr;
     char		**map_array;
+	char		*line;
 	int			exit;
 
 

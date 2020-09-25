@@ -17,8 +17,6 @@ CFLAGS		= -Wall -Wextra -Werror
 SRC			= main.c \
 			  parser/ft_check_args.c \
 			  parser/ft_chek_map.c \
-			  parser/get_next_line.c \
-			  parser/get_next_line_utils.c \
 			  parser/parser.c
 
 

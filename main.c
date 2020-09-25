@@ -94,30 +94,7 @@ int		main(int argc, char **argv)
 
 
 
-	char *line = "";
-	int id = 0;
-	int i = 1;
-
-	int fd = open(argv[1], O_RDONLY);
-	printf("fd  >%d< |  \n", fd);
-	printf("BUFFER_SIZE >%d< \n", BUFFER_SIZE);
-	//int last = 1;
-	while ((id = get_next_line(fd, &line))>0  )
-	{
-		printf("                                | # >%d< | | >%d< | >%s<\n", i, id, line);
-		i++;
-		if(line)
-		{
-			free(line);
-			line = NULL;
-		}
-	}
-	printf("                                | # >%d< | | >%d< | >%s<\n", i, id, line);
-	if(line)
-	{
-		free(line);
-		line = NULL;
-	}
+	parser(argv[1], &params);
 	return (0);
 
 

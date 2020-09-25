@@ -1,3 +1,16 @@
+R 1536 864
+
+NO ./textures/xpm/walls/512/wall_green_tiles.xpm
+ SO ./textures/xpm/walls/512/wall_small_tiles_texture.xpm
+WE ./textures/xpm/walls/512/wall_white_tiles_texture.xpm
+EA ./textures/xpm/walls/512/old_wall_texture.xpm
+S  ./textures/xpm/sprites/ball.xpm
+
+
+F	61,		43,		31
+C	00,		51,		102
+
+
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000002000001
