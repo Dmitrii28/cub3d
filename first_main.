@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 #include <zconf.h>
 #include "cub3d.h"
-#include "parser/parser.h"
 
 //int             close(int keycode, t_vars *vars)
 //{
@@ -25,8 +24,6 @@ void        my_mlx_pixel_put(t_data *data, int x, int y, int color)
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
-
-/*
 int             main(void)
 {
     void    *mlx;
@@ -46,86 +43,67 @@ int             main(void)
 
     my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 
-    printf("%s", ft_itoa(1000));
+    while (y < 100)
+    {
+        i = 300;
+        while (i  < 600 )
+        {
+            my_mlx_pixel_put(&img, y, i, 0x909900);
+            i++;
+        }
+        y++;
+        smesh++;
+    }
+
+
+    while (y < 250)
+    {
+        i = 200 + smesh;
+        while (smesh < i && i  < 700 - smesh)
+        {
+            my_mlx_pixel_put(&img, y, i, color);
+            i++;
+        }
+        y++;
+        smesh++;
+        color = color - 0x00000001;
+    }
+    y = 270;
+    smesh--;
+    while (y < 420)
+    {
+        i = 200 + smesh;
+        while (smesh > 1 && i  < 700 - smesh)
+        {
+            my_mlx_pixel_put(&img, y, i, color);
+            i++;
+        }
+        y++;
+        smesh--;
+        color = color + 0x00000001;
+    }
+    while (y < 1000)
+    {
+        i = 300;
+        while (i  < 600 )
+        {
+            my_mlx_pixel_put(&img, y, i, 0x909900);
+            i++;
+        }
+        y++;
+        smesh++;
+    }
 
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 
-    //mlx_loop(mlx);
+
+    mlx_loop(mlx);
 
 
-}*/
-int		ft_params_fill(t_prm *params)
-{
-	params->x_win_size = 0;
-	params->y_win_size = 0;
-	params->no_txr = NULL;
-	params->so_txr = NULL;
-	params->we_txr = NULL;
-	params->ea_txr = NULL;
-	params->sp_txr = NULL;
-	params->floor_txr = 0;
-	params->ceiling_txr = 0;
-	params->map_array = NULL;
-	params->exit = 0;
 
 
-	return (0);
+
+   
 
 
 }
-int			ft_exit(int exit, t_prm *params)
-{
-	ft_putstr_fd("Error\ncode #101: ' \n", 2);
-	printf("%d\n", exit);
-}
-int		main(int argc, char **argv)
-{
-    t_prm	params;
-
-    if ((params.exit = ft_params_fill(&params)) > 0)
-        return (ft_exit(params.exit, &params));
-	if ((params.exit = ft_check_args(argc, argv)) > 0)
-		return (ft_exit(params.exit, &params));
-	//if ((params.exit = f_pars_desc_file(argv[1], &opts)))
-		//return (f_exit(errcode, &opts));
-
-
-
-
-
-
-	char *line = "";
-	int id = 0;
-	int i = 1;
-
-	int fd = open(argv[1], O_RDONLY);
-	printf("fd  >%d< |  \n", fd);
-	printf("BUFFER_SIZE >%d< \n", BUFFER_SIZE);
-	//int last = 1;
-	while ((id = get_next_line(fd, &line))>0  )
-	{
-		printf("                                | # >%d< | | >%d< | >%s<\n", i, id, line);
-		i++;
-		if(line)
-		{
-			free(line);
-			line = NULL;
-		}
-	}
-	printf("                                | # >%d< | | >%d< | >%s<\n", i, id, line);
-	if(line)
-	{
-		free(line);
-		line = NULL;
-	}
-	return (0);
-
-
-
-
-
-
-
-}
-
-
