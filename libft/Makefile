@@ -2,7 +2,7 @@ GCC		:= gcc
 FLAGS	:= -Wall -Wextra -Werror
 AR		:= ar -rcs
 NAME	:= libft.a
-HFILE	:= libft.h
+HEAD	:= libft.h get_next_line.h
 SRC		:= ft_atoi.c \
 		   ft_bzero.c \
 		   ft_calloc.c \
@@ -36,8 +36,8 @@ SRC		:= ft_atoi.c \
 		   ft_strtrim.c \
 		   ft_substr.c \
 		   ft_tolower.c \
-		   ft_toupper.c
-SRCB	:= ft_lstadd_back.c \
+		   ft_toupper.c \
+		   ft_lstadd_back.c \
 		   ft_lstadd_front.c \
 		   ft_lstclear.c \
 		   ft_lstdelone.c \
@@ -45,27 +45,25 @@ SRCB	:= ft_lstadd_back.c \
 		   ft_lstlast.c \
 		   ft_lstmap.c \
 		   ft_lstnew.c \
-		   ft_lstsize.c
+		   ft_lstsize.c \
+		   get_next_line.c \
+		   get_next_line_utils.c
 OBJ		:= $(SRC:%.c=%.o)
-OBJB	:= $(SRCB:%.c=%.o)
 
 .PHONY:	all clean fclean re bonus
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HFILE)
+$(NAME): $(OBJ) $(HEAD)
 	$(AR) $(NAME) $(OBJ)
-
-bonus: $(NAME) $(OBJB)
-	$(AR) $(NAME) $(OBJB)
 
 %.o: %.c
 	$(GCC) $(FLAGS) -c $< -o $@
 
 clean:
-	@-rm -f $(OBJ) $(OBJB)
+	rm -f $(OBJ)
 
 fclean:	clean
-	@-rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
