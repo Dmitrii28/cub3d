@@ -17,7 +17,9 @@ CFLAGS		= -Wall -Wextra -Werror
 SRC			= main.c \
 			  parser/ft_check_args.c \
 			  parser/ft_chek_map.c \
-			  parser/parser.c
+			  parser/parser.c \
+			  parser/ft_take_param.c \
+			  parser/ft_take_param_2.c
 
 
 
@@ -29,8 +31,8 @@ SRC			= main.c \
 
 
 OBJ			= $(SRC:.c=.o)
-HEAD		= cub3d.h parser/parser.h
-HEAD_PATH	= -I mlx_linux/ -I parser/ -I libft/
+HEAD		= cub3d.h
+HEAD_PATH	= -I mlx_linux/ -I libft/
 LIBFT		= libft/libft.a
 MLX			= mlx_linux/libmlx.a
 

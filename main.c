@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 #include <zconf.h>
 #include "cub3d.h"
-#include "parser/parser.h"
 
 //int             close(int keycode, t_vars *vars)
 //{
@@ -56,17 +55,19 @@ int             main(void)
 }*/
 int		ft_params_fill(t_prm *params)
 {
-	params->x_win_size = 0;
-	params->y_win_size = 0;
+	params->x_win = -1;
+	params->y_win = -1;
 	params->no_txr = NULL;
 	params->so_txr = NULL;
 	params->we_txr = NULL;
 	params->ea_txr = NULL;
-	params->sp_txr = NULL;
-	params->floor_txr = 0;
-	params->ceiling_txr = 0;
+	params->s_txr = NULL;
+	params->floor = -1;
+	params->ceiling = -1;
 	params->map_array = NULL;
 	params->exit = 0;
+	params->count_line = 0;
+	params->msg = NULL;
 
 
 	return (0);
@@ -75,8 +76,13 @@ int		ft_params_fill(t_prm *params)
 }
 int			ft_exit(int exit, t_prm *params)
 {
-	ft_putstr_fd("Error\ncode #101: ' \n", 2);
-	printf("%d\n", exit);
+	printf("error %d\n", params->exit);
+
+
+
+	//ft_putstr_fd("Error\ncode #101: ' \n", 2);
+	if (params->msg)
+		printf("%s\n", params->msg);
 }
 int		main(int argc, char **argv)
 {
@@ -90,11 +96,13 @@ int		main(int argc, char **argv)
 		//return (f_exit(errcode, &opts));
 
 
+	if((params.exit = parser(argv[1], &params)))
+		return (ft_exit(params.exit, &params));
 
 
+	//printf("%d\n", 5 << 10 && 5 << 2);
 
 
-	parser(argv[1], &params);
 	return (0);
 
 
