@@ -26,7 +26,7 @@ typedef struct	s_list_items
 	int		error;
 	char	*temp;
 }				t_list_items;
-int     parser();
+
 int		get_next_line(int fd, char **line);
 char	*ft_temp_and_newbuffer(char *buffer, t_list_items *li);
 char	*ft_first_buffer(int fd, t_list_items *li, char *buffer);

@@ -45,5 +45,6 @@ int	ft_atoi(const char *str)
 			j++;
 		i++;
 	}
-	return ((ft_test_j(j, minus) == 1) ? ((int)(number * minus)) : ft_test_j(j, minus));
+	return ((ft_test_j(j, minus) == 1) ? \
+			((int)(number * minus)) : ft_test_j(j, minus));
 }
