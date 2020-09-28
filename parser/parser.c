@@ -1,6 +1,6 @@
 
 
-# include "parser.h"
+#include "../cub3d.h"
 
 int    ft_realloc_array(t_prm *params, int str_n)
 {
@@ -11,7 +11,7 @@ int    ft_realloc_array(t_prm *params, int str_n)
 	if (!(temp = (char**)malloc((str_n + 1) * sizeof(char*))))
 	{
 		// очистить массив на n строк и строку
-		return (200);
+		return (100); //// ошибка малллока
 	}
 	while (str_n > i)
 	{
@@ -48,7 +48,35 @@ int		ft_realloc_line(t_prm *params, int str_n, size_t max_width)
 	temp = NULL;
 	return (0);
 }
+int		ft_make_array(t_prm *params, int fd)
+{
+	int 	id;
+	int 	str_n;
 
+	str_n = 0;
+	while ((id = get_next_line(fd, &params->line)) >= 0)
+	{
+		printf("                                | # >%d< | | >%d< | >%s<\n", str_n, id, params->line);
+		if (params->count_line == 8)
+		{
+			if ((params->exit = ft_realloc_array(params, str_n)))
+				return (params->exit); /// обработать ошибк
+			str_n++;
+		}
+		if (params->count_line < 8)
+		{
+			if ((params->exit = ft_take_param(params)))
+				return (params->exit);
+			free(params->line);
+			params->line = NULL;
+		}
+		if (id == 0)
+			break;
+	}
+	if (id == 0 && params->count_line < 5)
+		return (params->exit = 112); ///// мало ссылок на параметры в файле (выяснить чего не хватает?)
+	return (0);
+}
 int parser(char *argv, t_prm *params)
 {
 	int     id;
@@ -58,22 +86,9 @@ int parser(char *argv, t_prm *params)
 	str_n = 0;
 	if ((fd = open(argv, O_RDONLY)) < 0)   ///// obrabotat oshibky
 		return (fd);
-	while ((id = get_next_line(fd, &params->line)) >= 0)
-	{
-		printf("        1                        | # >%d< | | >%d< | >%s<\n", str_n, id, params->line);
-		if (ft_strlen(ft_strtrim(params->line, " ")) > 0) ///////неправильно есть маллок
-		{
-			if ((params->exit = ft_realloc_array(params, str_n)))
-				return (params->exit); /// обработать ошибк
-			str_n++;
-		}
-		if (id == 0)
-			break ;
-	}
 
-
-
-
+	if(params->exit = ft_make_array(params, fd))
+		return (params->exit);
 
 
 /*
@@ -92,14 +107,26 @@ int parser(char *argv, t_prm *params)
 */
 
 
-
-
-
 	str_n = 0;
-	while (params->map_array[str_n])
+
+	if (params->map_array)
 	{
-		printf("!!! >%s<\n", params->map_array[str_n]);
-		str_n++;
+		while (params->map_array[str_n])
+		{
+			printf("!!! >%s<\n", params->map_array[str_n]);
+			str_n++;
+		}
 	}
+	else
+		printf("!!! >%s<\n", "error - массив не создан");
+
+	printf("!!! NO >%s<\n", params->no_txr);
+	printf("!!! SO >%s<\n", params->so_txr);
+	printf("!!! WE >%s<\n", params->we_txr);
+	printf("!!! EA >%s<\n", params->ea_txr);
+	printf("!!! S >%s<\n", params->s_txr);
+	printf("x-win %d\n", params->x_win);
+	printf("y-win %d\n", params->y_win);
+
 	return (0);
 }

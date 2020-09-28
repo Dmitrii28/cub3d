@@ -1,7 +1,7 @@
 #include <string.h>
 #include <errno.h>
 
-# include "parser.h"
+# include "../cub3d.h"
 int		ft_check_file(char *argv)
 {
 	int i;
