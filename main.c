@@ -74,7 +74,7 @@ int		ft_params_fill(t_prm *params)
 
 
 }
-int			ft_exit(int exit, t_prm *params)
+int			ft_exit(t_prm *params)
 {
 	printf("error %d\n", params->exit);
 
@@ -83,21 +83,22 @@ int			ft_exit(int exit, t_prm *params)
 	//ft_putstr_fd("Error\ncode #101: ' \n", 2);
 	if (params->msg)
 		printf("%s\n", params->msg);
+	return (0);
 }
 int		main(int argc, char **argv)
 {
     t_prm	params;
 
-    if ((params.exit = ft_params_fill(&params)) > 0)
-        return (ft_exit(params.exit, &params));
+    if ((params.exit = ft_params_fill(&params))) ///////разобраться почему &&&&&&&
+		return (ft_exit(&params));
 	if ((params.exit = ft_check_args(argc, argv)) > 0)
-		return (ft_exit(params.exit, &params));
+		return (ft_exit(&params));
 	//if ((params.exit = f_pars_desc_file(argv[1], &opts)))
 		//return (f_exit(errcode, &opts));
 
 
 	if((params.exit = parser(argv[1], &params)))
-		return (ft_exit(params.exit, &params));
+		return (ft_exit(&params));
 
 
 	//printf("%d\n", 5 << 10 && 5 << 2);

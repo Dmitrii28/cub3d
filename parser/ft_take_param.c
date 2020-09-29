@@ -25,14 +25,14 @@ int		ft_take_param_s(char *temp, t_prm *params)
 	}
 	return (0);
 }
-int 	ft_take_param_n_w(char *temp, t_prm *params)
+int 	ft_take_param_no_we(char *temp, t_prm *params)
 {
 	if (temp[0] == 'N' || temp[0] == 'W')
 	{
 		if (!(ft_strncmp(temp, "NO ", 3)))
 		{
 			if (params->no_txr)
-				return ((params->msg = ft_strdup("NO")) ? 301 : 100); ///// двойная строка или ошибка маллока
+				return ((params->msg = ft_strdup("NO")) ? 111 : 100); ///// двойная строка или ошибка маллока
 			if (!(params->no_txr = ft_strdup(ft_strtrim(&temp[3], " "))))
 				return (100); //// ошибка малллок
 			params->count_line++;
@@ -40,7 +40,7 @@ int 	ft_take_param_n_w(char *temp, t_prm *params)
 		else if (!(ft_strncmp(temp, "WE ", 3)))
 		{
 			if (params->we_txr)
-				return ((params->msg = ft_strdup("WE")) ? 301 : 100); ///// двойная строка или ошибка маллока
+				return ((params->msg = ft_strdup("WE")) ? 111 : 100); ///// двойная строка или ошибка маллока
 			if (!(params->we_txr = ft_strdup(ft_strtrim(&temp[3], " "))))
 				return (100); //// ошибка малллок
 			params->count_line++;
@@ -50,16 +50,8 @@ int 	ft_take_param_n_w(char *temp, t_prm *params)
 	}
 	return (0);
 }
-
-
-int		ft_take_param(t_prm *params)
+int 	ft_take_param_ea(char *temp, t_prm *params)
 {
-	char *temp;
-
-	if (!(temp = ft_strtrim(params->line, " ")))
-		return (100); //// ошибка маллока
-	if ((params->exit = ft_take_param_n_w(temp, params)))
-		return (params->exit);
 	if (temp[0] == 'E')
 	{
 		if (!(ft_strncmp(temp, "EA ", 3)))
@@ -71,13 +63,28 @@ int		ft_take_param(t_prm *params)
 			params->count_line++;
 		}
 		else
-			return (params->exit = 110);
+			return (110);
 	}
-	if ((params->exit = ft_take_param_s(temp, params)))
+	return (0);
+}
+int		ft_take_param(t_prm *params)
+{
+	char *temp;
+
+	if (!(temp = ft_strtrim(params->line, " ")))
+		return (100); //// ошибка маллока
+	if ((params->exit = ft_take_param_no_we(temp, params)) ||
+			(params->exit = ft_take_param_ea(temp, params)) ||
+			(params->exit = ft_take_param_s(temp, params)) ||
+			(params->exit = ft_take_param_2(temp, params)))
+	{
+		free(temp);
+		temp = NULL;
 		return (params->exit);
-	if ((params->exit = ft_take_param_2(temp, params)))
-			return (params->exit);
+	}
 	free(temp);
 	temp = NULL;
+	free(params->line);
+	params->line = NULL;
 	return (0);
 }

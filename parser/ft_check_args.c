@@ -30,7 +30,7 @@ int	ft_check_args(int argc, char **argv)
 
 
 
-	if (fd = open(argv[1], O_RDONLY) < 0)
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
 	{
 		ft_putstr_fd(strerror(errno), 2); //////// удалить перенести в ошибки
 		return (fd);

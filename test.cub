@@ -7,7 +7,7 @@ S ./textures/xpm/sprites/ball.xpm
 
 R       1536     864
 
-F 61, 43, 31
+F 0, 43, 23
 C 00, 51, 102
 
 

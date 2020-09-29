@@ -24,12 +24,6 @@ SRC			= main.c \
 
 
 
-
-
-
-
-
-
 OBJ			= $(SRC:.c=.o)
 HEAD		= cub3d.h
 HEAD_PATH	= -I mlx_linux/ -I libft/
@@ -39,8 +33,8 @@ MLX			= mlx_linux/libmlx.a
 all	: $(NAME)
 
 %.o: %.c
-	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
-#	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+#	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME): $(OBJ) $(HEAD) $(LIBFT) $(MLX)
 	$(CC) -o $(NAME) $(OBJ) $(HEAD_PATH) -Lmlx_linux -lmlx -Llibft -lft -L/usr/lib -lXext -lX11 -lm -lz
@@ -51,7 +45,7 @@ $(LIBFT): NONE
 
 $(MLX): NONE
 	@echo '----------- mlx ----------'
-	@make		-C ./mlx_linux/ --no-print-directory
+	@make		-C ./mlx_linux --no-print-directory
 
 clean:
 	rm -f $(OBJ)
@@ -62,6 +56,9 @@ fclean:	clean
 
 re: fclean all
 
-.PHONY: NONE re fclean clean all
+fcleanall: fclean
+	@make fclean -C ./libft --no-print-directory
+
+.PHONY: NONE re fclean clean all fcleanall
 
 
