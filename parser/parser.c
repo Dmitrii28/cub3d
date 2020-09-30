@@ -2,34 +2,10 @@
 
 #include "../cub3d.h"
 
-int    ft_realloc_array(t_prm *params, int str_n)
-{
-	char    **temp;
-	int  i;
 
-	i = 0;
-	if (!(temp = (char**)malloc((str_n + 2) * sizeof(char*))))
-	{
-		// очистить массив на n строк и строку
-		return (100); //// ошибка малллока
-	}
-	while (str_n > i)
-	{
-		temp[i] = params->map_array[i];
-		i++;
-	}
-	temp[i] = params->line;
-	i++;
-	temp[i] = NULL;
-	params->map_array = temp;
-	params->line = NULL;
-	temp = NULL;
-	return (0);
-}
 
 int 	ft_free_array(char **arr, int str)
 {
-	printf("!!! arr >%s<\n", arr[str]);
 	while (str >= 0)
 	{
 		free(arr[str]);
@@ -37,7 +13,7 @@ int 	ft_free_array(char **arr, int str)
 		str--;
 	}
 	free(arr);
-	return (1003333);
+	return (100);
 }
 
 int		ft_realloc_line(t_prm *params, int str_n, int max_width)
@@ -54,17 +30,15 @@ int		ft_realloc_line(t_prm *params, int str_n, int max_width)
 		if (!(temp[n] = (char*)malloc((max_width + 1) * sizeof(char))))
 			return (ft_free_array(temp, n)); /////// возвращает 100 ошибка маллока
 		i = 0;
-		while (n < str_n && params->map_array[n][i])
+		while (params->map_array[n][i])
 		{
 			temp[n][i] = params->map_array[n][i];
 			i++;
 		}
-		while (i < max_width) ///////проверить тут и количество строк nnnnn
+		while (i < max_width)
 			temp[n][i++] = ' ';
-		temp[n][i] = '\0';
-		n++;
+		temp[n++][i] = '\0';
 	}
-	temp[n] = NULL;
 	ft_free_array(params->map_array, n - 1);
 	params->map_array = temp;
 	temp = NULL;
@@ -87,7 +61,7 @@ int		ft_realloc_line(t_prm *params, int str_n, int max_width)
 	temp = NULL;*/
 
 }
-int		ft_make_array(t_prm *params, int fd)
+int		ft_prm_and_map(t_prm *params, int fd)
 {
 	int 	id;
 	int 	str_n;
@@ -98,9 +72,10 @@ int		ft_make_array(t_prm *params, int fd)
 		printf("                                | # >%d< | | >%d< | >%s<\n", str_n, id, params->line);
 		if (params->count_line == 8)
 		{
-			if ((params->exit = ft_realloc_array(params, str_n)))
+			if ((params->exit = ft_make_array(params, str_n)) >= 100)
 				return (params->exit); /// обработать ошибк
-			str_n++;
+			if (params->exit == 0)
+				str_n++;
 		}
 		if (params->count_line < 8)
 			if ((params->exit = ft_take_param(params)))
@@ -112,9 +87,10 @@ int		ft_make_array(t_prm *params, int fd)
 		return (params->exit = 112); ///// мало ссылок на параметры в файле (выяснить чего не хватает?)
 	//if ((params->exit = ft_realloc_array(params, str_n)))
 	//return (params->exit); /// обработать ошибк
+	params->exit = 0;
 	return (0);
 }
-int parser(char *argv, t_prm *params)
+int ft_parser(char *argv, t_prm *params)
 {
 	int     str_n;
 	int		fd;
@@ -125,15 +101,33 @@ int parser(char *argv, t_prm *params)
 	str_n = 0;
 	if ((fd = open(argv, O_RDONLY)) < 0)   ///// obrabotat oshibky
 		return (fd);
-	if((params->exit = ft_make_array(params, fd)))
+	if((params->exit = ft_prm_and_map(params, fd)))
 		return (params->exit);
+
+
+	char *temp333; //////////////////////// delit
+
+
 	while (params->map_array[str_n])
 	{
-//printf(" len %d\n", ft_strlen(params->map_array[str_n]));
+
+		temp333 = params->map_array[str_n];
+
+		printf("------- str %d params->map_array >%s<\n", str_n, params->map_array[str_n]);
+
 		temp_width = ft_strlen(params->map_array[str_n]);
 		max_width = (max_width < temp_width) ? temp_width : max_width;
 		str_n++;
 	}
+
+
+
+
+
+
+
+
+
 	if((params->exit = ft_realloc_line(params, str_n, max_width)))
 		return (params->exit);
 
@@ -174,7 +168,7 @@ int parser(char *argv, t_prm *params)
 	}
 	else
 		printf("!!! >%s<\n", "error - массив не создан");
-	printf("!!! >str #%d%s<\n", str_n, params->map_array[8]);
+	printf("!!! >str #%d %s<\n", str_n, params->map_array[str_n]);
 
 
 

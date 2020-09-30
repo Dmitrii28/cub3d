@@ -97,7 +97,7 @@ int		main(int argc, char **argv)
 		//return (f_exit(errcode, &opts));
 
 
-	if((params.exit = parser(argv[1], &params)))
+	if((params.exit = ft_parser(argv[1], &params)))
 		return (ft_exit(&params));
 
 

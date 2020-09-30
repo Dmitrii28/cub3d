@@ -44,16 +44,11 @@ typedef	struct	s_prm
 	int			exit;
 	char		*msg;
 
-
-
     int			gnl_ret;
     int			screenshot;
     int			pars_map_started;
     int			max_mapline_len;
     int			prior_spaces_mapline;
-
-
-
     char		*map_line;
     int			map_row_index;
     int			spawn_point_x;
@@ -82,7 +77,8 @@ typedef struct  s_vars {
 int		ft_check_args(int argc, char **argv);
 int		ft_take_param(t_prm *params);
 int 	ft_take_param_2(char *temp, t_prm *params);
-int		parser(char *argv, t_prm *params);
+int		ft_parser(char *argv, t_prm *params);
+int    ft_make_array(t_prm *params, int str_n);
 
 #endif
 
