@@ -15,7 +15,7 @@ int ft_check_yacheik(char **array, int j, int i, int height_array)
 
 	}
 	else if (j == height_array)
-	{
+	{   
 		if (array[j][i] == ' ' && !(ft_strchr("1 ", array[j][i + 1])) )
 			return (-1);
 		if(ft_strchr("02NSWE", array[j][i]))
@@ -46,6 +46,7 @@ int ft_check_map(char **array, int height_array)
 		{
 			if (!(ft_strchr("012 NSWE", array[j][i])))
 				return (-1);
+				
 			if (j > 0 && j < height_array)
 			{
 				if (ft_strchr("02NSWE", array[j][i]) && (array[j][i + 1] ==' ' || array[j + 1][i] == ' '))

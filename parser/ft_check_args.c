@@ -2,7 +2,7 @@
 #include <errno.h>
 
 # include "../cub3d.h"
-int		ft_check_file(char *argv)
+int		ft_check_file(char *argv, char *extension)
 {
 	int i;
 
@@ -11,10 +11,22 @@ int		ft_check_file(char *argv)
 
 	while (i >= 0 && argv[i] != '.')
 		i--;
-	if (ft_strncmp((const char *)(&argv[i + 1]), "cub", 4) != 0)
-		return (0);
-	else
-		return (1);
+	if (ft_strncmp(extension, "cub", 4) == 0)
+	{
+		if (ft_strncmp((&argv[i + 1]), extension, 4) != 0)
+			return (1);
+		else
+			return (0);
+
+	}
+	if (ft_strncmp(extension, "xpm", 4) == 0)
+	{
+		if (ft_strncmp((&argv[i + 1]), extension, 4) != 0)
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
 }
 
 int	ft_check_args(int argc, char **argv)
@@ -23,7 +35,7 @@ int	ft_check_args(int argc, char **argv)
 
 	if (argc < 2 || argc > 3)
 		return (100); ///// не верное количество аргументов
-	if (!(ft_check_file(argv[1])) ) // уточнить, может больше или равно
+	if ((ft_check_file(argv[1], "cub")) == 1) // уточнить, может больше или равно
 	{
 		return (88); //////wrong name file
 	}

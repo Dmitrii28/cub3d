@@ -1,42 +1,34 @@
 #include "../cub3d.h"
 
 
-int    ft_make_array(t_prm *params, int str_n)
+int    ft_make_array(t_data *prm, int str_n)
 {
-	char    **temp;
+	char    **temp_arr;
 	int  i;
 
 	i = 0;
-
-
-	int	t;
-
-	t = 0;
-	while (params->line[t] && params->line[t] == ' ')
-		t++;
-
-	if ((params->line[t] == '\0' || t == 0) && str_n == 0)
+	while (prm->line[i] && prm->line[i] == ' ')
+		i++;
+	if ((prm->line[i] == '\0' ) && str_n == 0)
 		return (1);
-	if ((params->line[t] == '\0' || t == 0) && str_n != 0)
-		return (130);
-////////////////////////////// обработать ошибку с пустой строкой посередине
-
-
-
-
-	if (!(temp = (char**)malloc((str_n + 1) * sizeof(char*))))
+	if ((prm->line[i] == '\0' ) && str_n != 0)
+		return (90);
+	if ((prm->line[i] != '\0') && str_n != 0 && prm->exit == 90)
+		return (130); ///// пустая строка в карте
+	i = 0;
+	if (!(temp_arr = (char**)malloc((str_n + 1) * sizeof(char*))))
 		return (100); //// ошибка малллока
 	while (str_n > i)
 	{
-		temp[i] = params->map_array[i];
+		temp_arr[i] = prm->map_array[i];
 		i++;
 	}
-	temp[i] = params->line;
-	//i++;
-	//temp[i] = NULL;
-	params->map_array = temp;
-	params->line = NULL;
-	temp = NULL;
+	temp_arr[i] = ft_strdup(prm->line);
+	//temp_arr[i] = NULL; //// добавить эту строку ??????
+	if (prm->map_array)
+		free(prm->map_array);
+	prm->map_array = temp_arr;
+	temp_arr = NULL;
 	return (0);
 }
 

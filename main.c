@@ -16,7 +16,7 @@
 //{
   //  mlx_destroy_window(vars->mlx, vars->win);
 //}
-
+/*
 void        my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
     char    *dst;
@@ -24,7 +24,7 @@ void        my_mlx_pixel_put(t_data *data, int x, int y, int color)
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
-
+*/
 /*
 int             main(void)
 {
@@ -53,56 +53,67 @@ int             main(void)
 
 
 }*/
-int		ft_params_fill(t_prm *params)
+int		ft_data_fill(t_data *prm)
 {
-	params->x_win = -1;
-	params->y_win = -1;
-	params->no_txr = NULL;
-	params->so_txr = NULL;
-	params->we_txr = NULL;
-	params->ea_txr = NULL;
-	params->s_txr = NULL;
-	params->floor = -1;
-	params->ceiling = -1;
-	params->map_array = NULL;
-	params->exit = 0;
-	params->count_line = 0;
-	params->msg = NULL;
+	prm->x_win = -1;
+	prm->y_win = -1;
+	prm->no_txr = NULL;
+	prm->so_txr = NULL;
+	prm->we_txr = NULL;
+	prm->ea_txr = NULL;
+	prm->s_txr = NULL;
+	prm->floor = -1;
+	prm->ceiling = -1;
+	prm->map_array = NULL;
+	prm->exit = 0;
+	prm->count_line = 0;
+	prm->msg = NULL;
+	prm->str_n = 0;
+	prm->color_arr = NULL;
 
 
 	return (0);
 
 
 }
-int			ft_exit(t_prm *params)
+int			ft_exit(t_data *prm)
 {
-	printf("error %d\n", params->exit);
+	printf("error %d\n", prm->exit);
 
-
+	if (prm->exit == 114 || prm->exit == 115)
+		ft_free_array(prm->color_arr, 2); /////очистка временого массива для пола потолка
 
 	//ft_putstr_fd("Error\ncode #101: ' \n", 2);
-	if (params->msg)
-		printf("%s\n", params->msg);
-	return (0);
+	if (prm->msg)
+		printf("%s\n", prm->msg);
+	return (prm->exit);
 }
 int		main(int argc, char **argv)
 {
-    t_prm	params;
+    t_data	prm;
 
-    if ((params.exit = ft_params_fill(&params))) ///////разобраться почему &&&&&&&
-		return (ft_exit(&params));
-	if ((params.exit = ft_check_args(argc, argv)) > 0)
-		return (ft_exit(&params));
-	//if ((params.exit = f_pars_desc_file(argv[1], &opts)))
+    if ((prm.exit = ft_data_fill(&prm))) ///////разобраться почему &&&&&&&
+		return (ft_exit(&prm));
+	if ((prm.exit = ft_check_args(argc, argv)) > 0)
+		return (ft_exit(&prm));
+	//if ((prm.exit = f_pars_desc_file(argv[1], &opts)))
 		//return (f_exit(errcode, &opts));
 
 
-	if((params.exit = ft_parser(argv[1], &params)))
-		return (ft_exit(&params));
+	if((prm.exit = ft_parser(argv[1], &prm)))
+		return (ft_exit(&prm));
 
 
 	//printf("%d\n", 5 << 10 && 5 << 2);
 
+	ft_free_array(prm.map_array, 5);
+//	free(prm.line);
+
+	free(prm.no_txr);
+	free(prm.so_txr);
+	free(prm.we_txr);
+	free(prm.ea_txr);
+	free(prm.s_txr);
 
 	return (0);
 

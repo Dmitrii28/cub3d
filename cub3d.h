@@ -27,7 +27,7 @@
 
 
 
-typedef	struct	s_prm
+typedef	struct	s_data
 {
     int			x_win;
     int			y_win;
@@ -43,29 +43,29 @@ typedef	struct	s_prm
 	char		*line;
 	int			exit;
 	char		*msg;
-
+	int 		str_n;
+	char 		**color_arr;
     int			gnl_ret;
     int			screenshot;
     int			pars_map_started;
     int			max_mapline_len;
     int			prior_spaces_mapline;
-    char		*map_line;
     int			map_row_index;
     int			spawn_point_x;
     int			spawn_point_y;
     char		spawn_orientation;
-}				t_prm;
+}				t_data;
 
 
 
 
-typedef struct  s_data {
+typedef struct  s_d {
     void        *img;
     char        *addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;
-}               t_data;
+}               t_d;
 
 
 
@@ -75,10 +75,13 @@ typedef struct  s_vars {
 }               t_vars;
 
 int		ft_check_args(int argc, char **argv);
-int		ft_take_param(t_prm *params);
-int 	ft_take_param_2(char *temp, t_prm *params);
-int		ft_parser(char *argv, t_prm *params);
-int    ft_make_array(t_prm *params, int str_n);
+int		ft_take_param(t_data *prm);
+int 	ft_take_param_2(char *temp, t_data *prm);
+int		ft_parser(char *argv, t_data *prm);
+int    ft_make_array(t_data *prm, int str_n);
+int 	ft_free_array(char **arr, int str);
+int 	ft_chek_textur(t_data *prm);
+int		ft_check_file(char *argv, char *extension);
 
 #endif
 
