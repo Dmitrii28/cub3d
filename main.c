@@ -117,7 +117,7 @@ int		main(int argc, char **argv)
 
 	if((prm.exit = ft_parser(argv[1], &prm)))
 		ft_exit(&prm);
-
+	ft_base(&prm);
 
 	//printf("%d\n", 5 << 10 && 5 << 2);
 

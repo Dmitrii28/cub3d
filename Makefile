@@ -20,7 +20,8 @@ SRC			= main.c \
 			  parser/parser.c \
 			  parser/ft_take_param.c \
 			  parser/ft_take_param_2.c \
-			  parser/ft_make_array.c
+			  parser/ft_make_array.c \
+			  base/ft_base.c
 
 
 

@@ -59,7 +59,27 @@ typedef	struct	s_data
     int			spawn_point_y;
 }				t_data;
 
+typedef struct	s_win
+{
+	t_data		*prm;
+	int			exit;
 
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			x_win_size;
+	int			y_win_size;
+	t_sdf		*opts;
+	t_img		img;
+	t_img		no_tex;
+	t_img		so_tex;
+	t_img		we_tex;
+	t_img		ea_tex;
+	t_img		sp_tex;
+	t_game		game;
+	t_sp		*sp_list;
+	t_keys		keys;
+
+}				t_win;
 
 
 typedef struct  s_d {
@@ -86,6 +106,9 @@ int 	ft_free_array(char **arr, int str);
 int 	ft_chek_textur(t_data *prm);
 int		ft_check_file(char *argv, char *extension);
 int		ft_check_map(t_data *prm);
+
+
+int 	ft_base(t_data *prm);
 
 
 #endif
