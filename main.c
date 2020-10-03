@@ -70,15 +70,16 @@ int		ft_data_fill(t_data *prm)
 	prm->msg = NULL;
 	prm->str_n = 0;
 	prm->color_arr = NULL;
-
-
+	prm->player = '0';
+	prm->player_x = 0;
+	prm->player_y = 0;
 	return (0);
 
 
 }
 int			ft_exit(t_data *prm)
 {
-	printf("error %d\n", prm->exit);
+
 
 	if (prm->exit == 114 || prm->exit == 115)
 		ft_free_array(prm->color_arr, 2); /////очистка временого массива для пола потолка
@@ -86,6 +87,20 @@ int			ft_exit(t_data *prm)
 	//ft_putstr_fd("Error\ncode #101: ' \n", 2);
 	if (prm->msg)
 		printf("%s\n", prm->msg);
+
+	printf("error %d\n", prm->exit);
+
+	/*
+	ft_free_array(prm->map_array, 5);
+//	free(prm.line);
+
+	free(prm->no_txr);
+	free(prm->so_txr);
+	free(prm->we_txr);
+	free(prm->ea_txr);
+	free(prm->s_txr);
+
+	*/
 	return (prm->exit);
 }
 int		main(int argc, char **argv)
@@ -101,7 +116,7 @@ int		main(int argc, char **argv)
 
 
 	if((prm.exit = ft_parser(argv[1], &prm)))
-		return (ft_exit(&prm));
+		ft_exit(&prm);
 
 
 	//printf("%d\n", 5 << 10 && 5 << 2);

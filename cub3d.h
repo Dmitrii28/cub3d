@@ -45,6 +45,10 @@ typedef	struct	s_data
 	char		*msg;
 	int 		str_n;
 	char 		**color_arr;
+	int 		player_x;
+	int 		player_y;
+	char		player;
+
     int			gnl_ret;
     int			screenshot;
     int			pars_map_started;
@@ -53,7 +57,6 @@ typedef	struct	s_data
     int			map_row_index;
     int			spawn_point_x;
     int			spawn_point_y;
-    char		spawn_orientation;
 }				t_data;
 
 
@@ -82,6 +85,8 @@ int    ft_make_array(t_data *prm, int str_n);
 int 	ft_free_array(char **arr, int str);
 int 	ft_chek_textur(t_data *prm);
 int		ft_check_file(char *argv, char *extension);
+int		ft_check_map(t_data *prm);
+
 
 #endif
 

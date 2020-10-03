@@ -113,6 +113,11 @@ int ft_parser(char *argv, t_data *prm)
 	}
 	if((prm->exit = ft_realloc_line(prm, i, max_width)))
 		return (prm->exit);
+	if((prm->exit = ft_check_map(prm)))
+		return (prm->exit);
+
+
+
 
 
 
@@ -151,7 +156,7 @@ int ft_parser(char *argv, t_data *prm)
 	}
 	else
 		printf("!!! >%s<\n", "error - массив не создан");
-	printf("!!! >str #%d %s<\n", prm->str_n, prm->map_array[prm->str_n]);
+	//printf("!!! >str #%d %s<\n", prm->str_n, prm->map_array[prm->str_n]);
 
 
 
