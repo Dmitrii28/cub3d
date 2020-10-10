@@ -39,7 +39,8 @@ int		ft_realloc_line(t_data *prm, int str_n, int max_width)
 			temp[n][i++] = ' ';
 		temp[n++][i] = '\0';
 	}
-	ft_free_array(prm->map_array, n - 1);
+	temp[n] = NULL;
+	ft_free_array(prm->map_array, n);
 	prm->map_array = temp;
 	temp = NULL;
 	return (0); ///////// дописать и добавить удаление первых пустых строк  и проверит
@@ -148,9 +149,9 @@ int ft_parser(char *argv, t_data *prm)
 
 	if (prm->map_array)
 	{
-		while (prm->map_array[prm->str_n])
+		while (prm->map_array[prm->str_n] != NULL)
 		{
-			printf("!!! >%s<\n", prm->map_array[prm->str_n]);
+			//printf("!!! >%s<\n", prm->map_array[prm->str_n]);
 			prm->str_n++;
 		}
 	}

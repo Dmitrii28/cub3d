@@ -53,7 +53,7 @@ int             main(void)
 
 
 }*/
-int		ft_data_fill(t_data *prm)
+int		ft_prm_fill(t_data *prm)
 {
 	prm->x_win = -1;
 	prm->y_win = -1;
@@ -71,8 +71,8 @@ int		ft_data_fill(t_data *prm)
 	prm->str_n = 0;
 	prm->color_arr = NULL;
 	prm->player = '0';
-	prm->player_x = 0;
-	prm->player_y = 0;
+	prm->play_x = 0;
+	prm->play_y = 0;
 	return (0);
 
 
@@ -107,7 +107,7 @@ int		main(int argc, char **argv)
 {
     t_data	prm;
 
-    if ((prm.exit = ft_data_fill(&prm))) ///////разобраться почему &&&&&&&
+    if ((prm.exit = ft_prm_fill(&prm))) ///////разобраться почему &&&&&&&
 		return (ft_exit(&prm));
 	if ((prm.exit = ft_check_args(argc, argv)) > 0)
 		return (ft_exit(&prm));
@@ -120,7 +120,7 @@ int		main(int argc, char **argv)
 	ft_base(&prm);
 
 	//printf("%d\n", 5 << 10 && 5 << 2);
-
+/*
 	ft_free_array(prm.map_array, 5);
 //	free(prm.line);
 
@@ -129,7 +129,7 @@ int		main(int argc, char **argv)
 	free(prm.we_txr);
 	free(prm.ea_txr);
 	free(prm.s_txr);
-
+*/
 	return (0);
 
 

@@ -60,8 +60,8 @@ int ft_check_cell(t_data *prm, int j, int i)
 			printf("i = %2d --- %c\n", i, prm->player);
 			if (prm->player == '0') {
 				prm->player = prm->map_array[j][i];
-				prm->player_x = i;
-				prm->player_y = j;
+				prm->play_x = i;
+				prm->play_y = j;
 			} else
 				return (134); ////// больше 1 игрока на карте
 		}

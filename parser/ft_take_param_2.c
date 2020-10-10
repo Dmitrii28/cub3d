@@ -6,12 +6,17 @@ int 	ft_take_param_r(char *temp, t_data *prm, int i)
 		if (prm->x_win != -1)
 			return ((prm->msg = ft_strdup("R")) ? 111 : 100); ///// двойная строка или ошибка маллока
 		prm->x_win = ft_atoi(&temp[i]);
-		while (temp[i++] == ' ');
-		while ((temp[i] >= '0') && (temp[i++] <= '9'));
+		while (temp[i] == ' ')
+			i++;
+		while ((temp[i] >= '0') && (temp[i] <= '9'))
+			i++;
 		prm->y_win = ft_atoi(&temp[i]);
-		while (temp[i++] == ' ');
-		while ((temp[i] >= '0') && (temp[i++] <= '9'));
-		while (temp[i] == ' ' && temp[i++] != '\0');
+		while (temp[i] == ' ')
+			i++;
+		while ((temp[i] >= '0') && (temp[i] <= '9'))
+			i++;
+		while (temp[i] == ' ' && temp[i] != '\0')
+			i++;
 		if (temp[i] != '\0')
 			return (113); ///// неверный формат разрешения экрана
 		prm->count_line++;
