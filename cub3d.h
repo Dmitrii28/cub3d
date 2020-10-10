@@ -72,12 +72,13 @@ typedef struct	s_game
 	float		turn_speed;
 	float		trend_x;
 	float		trend_y;
+	float		old_trend_x;
+	float		old_trend_y;
 	float		vision_x;
 	float		vision_y;
 
 	float		*wall_dist_arr;
-	float		old_dir_x;
-	float		old_dir_y;
+
 	float		old_plane_x;
 	float		old_plane_y;
 }				t_game;

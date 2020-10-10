@@ -9,36 +9,38 @@ int 	ft_window_start(t_mlx *mlx)
 	float 	dlt;
 
 
-	printf("------------------------------- mlx %x\n", mlx->mlx_ptr);
+	//printf("------------------------------- mlx %x\n", mlx->mlx_ptr);
 	mlx_get_screen_size(mlx->mlx_ptr, &mlx->x_win, &mlx->y_win);
-	printf("---------------------------------------------------x (ширина) %d y (высота) %d \n", mlx->x_resolut, mlx->y_resolut);
-
+	printf("---------------------------------------------------x (ширина) %d y (высота) %d \n", mlx->x_win, mlx->y_win);
+	printf("---------------- --------------x (длинна) %d y (строки) %d \n", ft_strlen(mlx->prm->map_array[0]), mlx->prm->str_n);
 	if (mlx->x_win > mlx->prm->x_win)
 		mlx->x_win = mlx->prm->x_win;
 	if (mlx->y_win > mlx->prm->y_win)
 		mlx->y_win = mlx->prm->y_win;
-	mlx->game.delta = mlx->x_win / ft_strlen(mlx->prm->map_array[0]) / 2;
-	dlt = mlx->y_win / mlx->prm->str_n / 2;
+	printf("x-win %d  y-win %d \n", mlx->x_win, mlx->y_win);
+	mlx->game.delta = (float)mlx->x_win / ft_strlen(mlx->prm->map_array[0]) ;
+	dlt = (float)mlx->y_win / mlx->prm->str_n ;
+	printf("dlt %f  \n", dlt);
 	mlx->game.delta = (mlx->game.delta > dlt ? dlt : mlx->game.delta);
 
-	mlx->game.player_x = mlx->prm->play_x * mlx->game.delta * 2;
-	mlx->game.player_y = mlx->prm->play_y * mlx->game.delta * 2;
+	//mlx->game.player_x = mlx->prm->play_x * mlx->game.delta * 2;
+	//mlx->game.player_y = mlx->prm->play_y * mlx->game.delta * 2;
 
 	printf("delta %f  \n", mlx->game.delta);
 	return (0);
 }
-void        my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void        my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char    *dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 void 	ft_draw_map(t_mlx *mlx)
 {
 
-	int x, temp_x, y, temp_y, color, smesh, smesh2, col, str ;
-
+	float x, temp_x, y, temp_y, color, smesh, smesh2;
+int col, str ;
 	x = temp_x = 0;
 	y = temp_y = 0;
 	col = str = 0;
@@ -70,14 +72,14 @@ void 	ft_draw_map(t_mlx *mlx)
 					my_mlx_pixel_put(&mlx->img, x, y, color);
 					y++;
 				}
-				temp_y = y + mlx->game.delta;
+				temp_y = y;
 				str++;
 			}
 			y = 0;
 			temp_y = 0;
 			x++;
 		}
-		temp_x = x + mlx->game.delta;
+		temp_x = x;
 		col++;
 		str = 0;
 	}
@@ -94,9 +96,13 @@ void	ft_put_player(t_mlx *mlx)
 	//mlx->game.player_y += ;
 
 
-	my_mlx_pixel_put(&mlx->img, mlx->game.player_x, mlx->game.player_y, 0xFFFFFFFF);
+	my_mlx_pixel_put(&mlx->img, mlx->game.player_x * mlx->game.delta,
+				  mlx->game.player_y * mlx->game.delta, 0xFFFFFFFF);
 
-
+	my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.trend_x) * mlx->game.delta,
+					 (mlx->game.player_y + mlx->game.trend_y) * mlx->game.delta, 0x00cc0000);
+	//my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.vision_x + 0.3) * mlx->game.delta,
+				//	 (mlx->game.player_y + mlx->game.trend_y ) * mlx->game.delta, 0x00cc0000);
 }
 void 	ft_base(t_data *prm)
 {
