@@ -99,10 +99,80 @@ void	ft_put_player(t_mlx *mlx)
 	my_mlx_pixel_put(&mlx->img, mlx->game.player_x * mlx->game.delta,
 				  mlx->game.player_y * mlx->game.delta, 0xFFFFFFFF);
 
-	my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.trend_x) * mlx->game.delta,
-					 (mlx->game.player_y + mlx->game.trend_y) * mlx->game.delta, 0x00cc0000);
-	//my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.vision_x + 0.3) * mlx->game.delta,
-				//	 (mlx->game.player_y + mlx->game.trend_y ) * mlx->game.delta, 0x00cc0000);
+	float x, y;
+	x = 0;
+	while (x < 10000)
+	{
+		if (ft_strchr("0NSWE", mlx->prm->map_array[(int) (mlx->game.player_y + mlx->game.trend_y * x)]
+		[(int) (mlx->game.player_x + mlx->game.trend_x * x)])
+		&& mlx->prm->map_array[(int) (mlx->game.player_y + mlx->game.trend_y * x)]
+		[(int) (mlx->game.player_x + mlx->game.trend_x * x)] != ' '
+
+		)
+			x += 0.1;
+		else
+			break ;
+	}
+
+	x = x - 0.1;
+	y = x;
+	while (x > 0.1)
+	{
+		my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.trend_x * x) * mlx->game.delta,
+						 (mlx->game.player_y + mlx->game.trend_y * x) * mlx->game.delta, 0x00cc9999);
+	x = x - 0.01;
+	}
+	x = y;
+	float tr;
+	tr = 0.0;
+
+		while (tr < 0.5)
+		{
+
+	 while (x < 10000)
+	{
+		if (ft_strchr("0NSWE", mlx->prm->map_array[(int) ((mlx->game.player_y + (mlx->game.trend_x * sin(tr) +
+													mlx->game.trend_y * cos(tr)) * x) * mlx->game.delta)]
+		[(int) ((mlx->game.player_x + (mlx->game.trend_x * cos(tr) -
+	mlx->game.trend_y * sin(tr)) * x) * mlx->game.delta)])
+		&& mlx->prm->map_array[(int) (mlx->game.player_y + mlx->game.trend_y * x)]
+		[(int) (mlx->game.player_x + mlx->game.trend_x * x)] != ' '
+
+		)
+			x += 0.1;
+		else
+			break ;
+	}
+
+
+
+			 while (x > 0.1)
+			{
+				my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + (mlx->game.trend_x * cos(tr) -
+				mlx->game.trend_y * sin(tr)) * x) * mlx->game.delta,
+							 (mlx->game.player_y + (mlx->game.trend_x * sin(tr) +
+													mlx->game.trend_y * cos(tr)) * x) * mlx->game.delta, 0x00cc9999);
+			x = x - 0.01;
+			}
+			 x = 0.1;
+	 		tr += 0.01;
+		}
+
+
+
+
+
+
+
+
+
+
+	my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.vision_x) * mlx->game.delta,
+					 (mlx->game.player_y + mlx->game.vision_y ) * mlx->game.delta, 0x00cc0000);
+
+
+	my_mlx_pixel_put(&mlx->img, (mlx->game.player_x + mlx->game.vision_x) * mlx->game.delta,
+					 (mlx->game.player_y + mlx->game.vision_y) * mlx->game.delta, 0x00cc0000);
 }
 void 	ft_base(t_data *prm)
 {

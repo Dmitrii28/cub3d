@@ -8,22 +8,22 @@ void 	ft_trend_player(t_mlx *mlx)
 	if (mlx->prm->player == 'N')
 	{
 		mlx->game.trend_y = -1;
-		mlx->game.vision_x = tan(M_PI * 60 / 360); /////// 60 угол обзора
+		mlx->game.vision_x = tan(M_PI * 66 / 360); /////// 60 угол обзора
 	}
 	if (mlx->prm->player == 'S')
 	{
 		mlx->game.trend_y = 1;
-		mlx->game.vision_x = -tan(M_PI * 60 / 360);
+		mlx->game.vision_x = -tan(M_PI * 66 / 360);
 	}
 	if (mlx->prm->player == 'W')
 	{
 		mlx->game.trend_x = -1;
-		mlx->game.vision_y = -tan(M_PI * 60 /360);
+		mlx->game.vision_y = -tan(M_PI * 66 /360);
 	}
 	if (mlx->prm->player == 'E')
 	{
 		mlx->game.trend_x = 1;
-		mlx->game.vision_y = tan(M_PI * 60 / 360);
+		mlx->game.vision_y = tan(M_PI * 66 / 360);
 	}
 }
 int		ft_game_first_param(t_mlx *mlx)
@@ -31,7 +31,7 @@ int		ft_game_first_param(t_mlx *mlx)
 	mlx->game.player_x = (float)mlx->prm->play_x + 0.5;
 	mlx->game.player_y = (float)mlx->prm->play_y + 0.5;
 	mlx->game.walk_speed = 0.02;
-	mlx->game.turn_speed = 1 * M_PI / 180; ////// 3 взял от туда
+	mlx->game.turn_speed = 0.2 * M_PI / 180; ////// 3 взял от туда
 	mlx->exit = 0;
 	ft_trend_player(mlx);
 	mlx->key.w = 0;
