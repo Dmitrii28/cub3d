@@ -180,6 +180,7 @@ int		ft_game_first_param(t_mlx *mlx);
 int		ft_full_window(t_mlx *mlx);
 void 	ft_draw_map(t_mlx *mlx);
 void	ft_put_player(t_mlx *mlx);
+void		ft_draw_sky(t_mlx *mlx);
 #endif
 
 

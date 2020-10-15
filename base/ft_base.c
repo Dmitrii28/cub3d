@@ -18,10 +18,10 @@ int 	ft_window_start(t_mlx *mlx)
 	if (mlx->y_win > mlx->prm->y_win)
 		mlx->y_win = mlx->prm->y_win;
 	printf("x-win %d  y-win %d \n", mlx->x_win, mlx->y_win);
-	mlx->game.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_array[0]) / 2;
+	mlx->game.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_array[0]) / 3;
 
 	//mlx->game.delta_x = mlx->game.delta_x / 2;
-	mlx->game.delta_y = (float)mlx->y_win / mlx->prm->str_n / 2 ;
+	mlx->game.delta_y = (float)mlx->y_win / mlx->prm->str_n / 3 ;
 
 	printf("delta_x %f  \n", mlx->game.delta_x);
 	printf("delta y %f  \n", mlx->game.delta_y);
@@ -77,6 +77,8 @@ void 	ft_draw_map(t_mlx *mlx)
 	}
 	//printf("x %d y %d \n", mlx->prm->play_x, mlx->prm->play_y);
 	//mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
+
+
 }
 void 	ft_test(t_mlx *mlx)
 {
@@ -89,8 +91,8 @@ void 	ft_test(t_mlx *mlx)
 }
 void 	ft_verline(t_mlx *mlx, float tr, int drawStart, int drawEnd, int color)
 {
-	int new_tr = tr * 100;
-	printf(" tr %d tr-2 %f\n", new_tr, tr);
+	int new_tr = tr * 580;
+	//printf(" new_tr %d tr %f\n", new_tr, tr);
 
 	while (drawStart < drawEnd)
 	{
@@ -98,14 +100,14 @@ void 	ft_verline(t_mlx *mlx, float tr, int drawStart, int drawEnd, int color)
 		drawStart++;
 	}
 }
-int 	ft_print_line(t_mlx *mlx, int perpWallDist, float tr)
+int 	ft_print_line(t_mlx *mlx, float perpWallDist, float tr)
 {
 
 	int h = mlx->y_win;
 	// Рассчитываем высоту линии для рисования на экране
 	if (perpWallDist == 0)
-		return 0;
-	int lineHeight = (int) (h / perpWallDist);
+		perpWallDist = 1;
+	int lineHeight =  (int)(h / perpWallDist);
 
 	// вычисляем самый низкий и самый высокий пиксели для заполнения текущей полосы
 	int drawStart = -lineHeight / 2 + h / 2;
@@ -117,8 +119,33 @@ int 	ft_print_line(t_mlx *mlx, int perpWallDist, float tr)
 	ft_verline(mlx, tr, drawStart, drawEnd, 0xfcfcfc);
 	return 0;
 }
+void		ft_draw_sky(t_mlx *mlx)
+{
+	int y, x;
+	x = y = 0;
+
+	while (x < mlx->x_win)
+	{
+		while (y < mlx->y_win / 2)
+		{
+			my_mlx_pixel_put(&mlx->img, x, y, 0x123321);
+			y++;
+		}
+		while (y < mlx->y_win)
+		{
+			my_mlx_pixel_put(&mlx->img, x, y, 0xcccccc);
+			y++;
+		}
+		y = 0;
+		x++;
+	}
+}
 void	ft_put_player(t_mlx *mlx)
 {
+
+
+
+
 	my_mlx_pixel_put(&mlx->img, mlx->game.player_x * mlx->game.delta_x,
 				  mlx->game.player_y * mlx->game.delta_y, 0xFFFFFFFF);
 	float x, y;
@@ -141,13 +168,9 @@ void	ft_put_player(t_mlx *mlx)
 	}
 
 
-	float t_x, t_y;
-	t_x = mlx->game.player_x + mlx->game.trend_x * x;
-	t_y = mlx->game.player_y + mlx->game.trend_y * x;
-	float dist;
-	dist = sqrt(pow((mlx->game.player_x - t_x), 2) + pow((mlx->game.player_y - t_y), 2));
+
 	//dist = sqrt(   pow(  (t_x +1  - mlx->game.player_x + 1), 2)  + pow((t_y + 1 - mlx->game.player_y + 1), 2));
-printf(" dist %f \n", dist);
+
 	/*
 	 * printf(" x %f ", x);
 	printf(" t_x %f ", t_x);
@@ -205,9 +228,13 @@ printf(" dist %f \n", dist);
 			x -= 0.01;
 
 
-
+			float t_x, t_y;
+			t_x = mlx->game.vision_x + mlx->game.trend_x * x;
+			t_y = mlx->game.vision_y + mlx->game.trend_y * x;
+			float dist;
+			dist = sqrt(pow((mlx->game.vision_x - t_x), 2) + pow((mlx->game.vision_y - t_y), 2));
 			two_tr = tr + 0.6;
-ft_print_line(mlx, x, two_tr);
+ft_print_line(mlx, dist, two_tr);
 
 
 
@@ -219,7 +246,10 @@ ft_print_line(mlx, x, two_tr);
 			x = x - 0.1;
 			}
 			 x = 0;
-	 		tr += 0.01;
+			//printf("  tr %f\n", tr);
+			//printf("  tr %f\n", 1.f / 500);
+	 		tr += (1.f / 580);
+
 		}
 
 

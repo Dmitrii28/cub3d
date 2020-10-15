@@ -2,6 +2,7 @@
 
 int		ft_full_window(t_mlx *mlx)
 {
+	ft_draw_sky(mlx);
 	ft_draw_map(mlx);
 	ft_put_player(mlx);
 
