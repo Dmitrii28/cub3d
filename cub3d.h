@@ -64,7 +64,8 @@ typedef struct	s_game
 {
 	float		start_pl_x;
 	float 		start_pl_y;
-	float 		delta; //////////////////////////////////////// нада ???????
+	float 		delta_x; //////////////////////////////////////// нада ???????
+	float 		delta_y;
 
 	float		player_x;
 	float		player_y;
@@ -74,8 +75,8 @@ typedef struct	s_game
 	float		trend_y;
 	float		old_trend_x;
 	float		old_trend_y;
-	float		vision_x;
-	float		vision_y;
+	double		vision_x;
+	double		vision_y;
 
 	float		*wall_dist_arr;
 

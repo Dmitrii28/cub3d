@@ -5,14 +5,28 @@ void	ft_forward_and_back(t_mlx *mlx, int trend)
 	[(int)(mlx->game.player_x + trend * (mlx->game.trend_x * mlx->game.walk_speed))]))
 		mlx->game.player_x += trend * (mlx->game.trend_x * mlx->game.walk_speed);
 
+//printf(" d %d\n", (int)(mlx->game.player_y + trend * (mlx->game.trend_y * mlx->game.walk_speed)));
+//printf(" cccc %c\n", mlx->prm->map_array[(int)(mlx->game.player_y + trend * (mlx->game.trend_y * mlx->game.walk_speed))]
+//	[(int)mlx->game.player_x]);
+
 	if (ft_strchr("0NSWE", mlx->prm->map_array[(int)(mlx->game.player_y + trend * (mlx->game.trend_y * mlx->game.walk_speed))]
 	[(int)mlx->game.player_x]))
+	{
+
+
+		//printf(" f %f\n", mlx->game.player_y);
 		mlx->game.player_y += trend * (mlx->game.trend_y * mlx->game.walk_speed);
+		//printf(" f %f\n", mlx->game.player_y);
+
+
+
+	}
+
 }
 void	ft_strafe(t_mlx *mlx, int trend)
 {
 	if (ft_strchr("0NSWE", mlx->prm->map_array[(int)mlx->game.player_y]
-	[(int)(mlx->game.player_x + trend * (mlx->game.player_x * mlx->game.walk_speed))]))
+	[(int)(mlx->game.player_x + trend * (mlx->game.vision_x * mlx->game.walk_speed))]))
 		mlx->game.player_x += trend * (mlx->game.vision_x * mlx->game.walk_speed);
 
 	if (ft_strchr("0NSWE", mlx->prm->map_array[(int)(mlx->game.player_y + trend * (mlx->game.vision_y * mlx->game.turn_speed))]
@@ -21,15 +35,26 @@ void	ft_strafe(t_mlx *mlx, int trend)
 }
 void 	ft_turn(t_mlx *mlx, int trend)
 {
-	float temp_vision_x;
-	float temp_trend_x;
+	double temp_vision_x;
+	double temp_trend_x;
 
 	temp_trend_x = mlx->game.trend_x;
-	mlx->game.trend_x = mlx->game.trend_x * cos(trend * mlx->game.turn_speed) - mlx->game.trend_y * sin(trend * mlx->game.turn_speed);
-	mlx->game.trend_y = temp_trend_x * sin(trend * mlx->game.turn_speed) + mlx->game.trend_y * cos(trend * mlx->game.turn_speed);
+	mlx->game.trend_x =
+	mlx->game.trend_x * cos(trend * mlx->game.turn_speed) - mlx->game.trend_y * sin(trend * mlx->game.turn_speed);
+
+
+	mlx->game.trend_y =
+	temp_trend_x * sin(trend * mlx->game.turn_speed) + mlx->game.trend_y * cos(trend * mlx->game.turn_speed);
+
+
+
 	temp_vision_x = mlx->game.vision_x;
-	mlx->game.vision_x = mlx->game.vision_x * cos(trend * mlx->game.turn_speed) - mlx->game.vision_y * sin(trend * mlx->game.turn_speed);
-	mlx->game.vision_y = temp_vision_x * sin(trend * mlx->game.turn_speed) + mlx->game.vision_y * cos(trend * mlx->game.turn_speed);
+
+	mlx->game.vision_x =
+	mlx->game.vision_x * cos(trend * mlx->game.turn_speed) - mlx->game.vision_y * sin(trend * mlx->game.turn_speed);
+
+	mlx->game.vision_y =
+	temp_vision_x * sin(trend * mlx->game.turn_speed) + mlx->game.vision_y * cos(trend * mlx->game.turn_speed);
 
 }
 int 	ft_key_scan(t_mlx *mlx)
