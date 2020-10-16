@@ -89,14 +89,14 @@ void 	ft_test(t_mlx *mlx)
 	float oldTime = 0; // время предыдущего кадра
 
 }
-void 	ft_verline(t_mlx *mlx, float tr, int drawStart, int drawEnd, int color)
+void 	ft_verline(t_mlx *mlx, float tr, int drawStart, int drawEnd)
 {
-	int new_tr = tr * 580;
-	//printf(" new_tr %d tr %f\n", new_tr, tr);
-
+	int new_tr = tr * mlx->x_win;
+	printf(" new_tr %d tr %f\n", new_tr, tr);
+	printf("  mlx->x_win %d  \n",  mlx->x_win);
 	while (drawStart < drawEnd)
 	{
-		my_mlx_pixel_put(&mlx->img, new_tr, drawStart, color);
+		my_mlx_pixel_put(&mlx->img, new_tr, drawStart, mlx->game.color);
 		drawStart++;
 	}
 }
@@ -116,7 +116,7 @@ int 	ft_print_line(t_mlx *mlx, float perpWallDist, float tr)
 	int drawEnd = lineHeight / 2 + h / 2;
 	if (drawEnd >= h)
 		drawEnd = h - 1;
-	ft_verline(mlx, tr, drawStart, drawEnd, 0xfcfcfc);
+	ft_verline(mlx, tr, drawStart, drawEnd);
 	return 0;
 }
 void		ft_draw_sky(t_mlx *mlx)
@@ -140,6 +140,29 @@ void		ft_draw_sky(t_mlx *mlx)
 		x++;
 	}
 }
+void 	ft_check_wall(t_mlx *mlx, float x, float tr)
+{
+	mlx->game.color = 0xfcfcfc;
+	if ((int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.04))
+	> (int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x)))
+		mlx->game.color = 0x999999;
+
+	if ((int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.04))
+	> (int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x)))
+	{
+		if (mlx->game.trend_x - mlx->game.trend_y > 0)
+			mlx->game.color = 0x009900;
+		else
+			mlx->game.color = 0x000099;
+	}
+
+	/*
+	[(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.05))]
+	[(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.05))])
+*/
+	 }
+
+
 void	ft_put_player(t_mlx *mlx)
 {
 
@@ -189,51 +212,84 @@ void	ft_put_player(t_mlx *mlx)
 	}
 	x = 0;
 	float tr;
-	tr = -0.6;
+	tr = -0.5;
 	float two_tr;
+	float temp_x = 100;
+	int chek = 0;
 
-		while (tr < 0.6)
+		while (tr <= 0.5)
 		{
 			 while (x < 10000)
 			{
 				if (ft_strchr("0NSWE",
 				mlx->prm->map_array
-				[(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * x)]
-				[(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * x)])
-				&&
-				mlx->prm->map_array
-				[(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * x)]
-				[(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * x)] != ' ')
+				[(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.05))]
+				[(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.05))])
+				&& (
+						ft_strchr("0NSWE",
+								  mlx->prm->map_array
+								  [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x))]
+								  [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.05))])
+				||
+						ft_strchr("0NSWE",
+								  mlx->prm->map_array
+								  [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.05))]
+								  [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x))])
+
+					   )
+			)
 					x += 0.05;
 
 				else
 					break;
+
+
 			}
 			x -= 0.05;
 			while (x < 10000)
 			{
-				if (ft_strchr("0NSWE",
+				if (chek == 0 && ft_strchr("0NSWE",
 							  mlx->prm->map_array
-							  [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * x)]
-							  [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * x)])
-					&&
-					mlx->prm->map_array
-					[(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * x)]
-					[(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * x)] != ' ')
-					x += 0.01;
+							  [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.005))]
+							  [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.005))])
+
+			 && (
+				 ft_strchr("0NSWE",
+					   mlx->prm->map_array
+						   [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x))]
+						   [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x + 0.005))])
+				 ||
+				 ft_strchr("0NSWE",
+						   mlx->prm->map_array
+						   [(int)(mlx->game.player_y + (mlx->game.trend_x * sin(tr) + mlx->game.trend_y * cos(tr)) * (x + 0.005))]
+						   [(int)(mlx->game.player_x + (mlx->game.trend_x * cos(tr) - mlx->game.trend_y * sin(tr)) * (x))])
+
+		 )
+
+
+
+			 )
+					x += 0.005;
 
 				else
 					break;
 			}
-			x -= 0.01;
-
-
+			ft_check_wall(mlx, x, tr);
+			//x -= 0.005;
+			temp_x = x;
 			float t_x, t_y;
-			t_x = mlx->game.vision_x + mlx->game.trend_x * x;
-			t_y = mlx->game.vision_y + mlx->game.trend_y * x;
+			t_x = mlx->game.player_x + mlx->game.trend_x * x;
+			t_y = mlx->game.player_y + mlx->game.trend_y * x;
 			float dist;
-			dist = sqrt(pow((mlx->game.vision_x - t_x), 2) + pow((mlx->game.vision_y - t_y), 2));
-			two_tr = tr + 0.6;
+			dist = sqrt(pow((mlx->game.player_x - t_x), 2) + pow((mlx->game.player_y - t_y), 2));
+			//printf("tr 1 %f\n", tr);
+			//printf("tr 2 %f\n", abs(tr));
+			//printf("dist 1 %f\n", dist);
+			two_tr = tr + 0.5;
+			dist = dist * cos(tr);
+
+			//printf("dist 2 %f\n", dist);
+			//printf("cos 2 %f\n", cos( tr));
 ft_print_line(mlx, dist, two_tr);
 
 
@@ -248,7 +304,7 @@ ft_print_line(mlx, dist, two_tr);
 			 x = 0;
 			//printf("  tr %f\n", tr);
 			//printf("  tr %f\n", 1.f / 500);
-	 		tr += (1.f / 580);
+	 		tr += (1.f / mlx->x_win);
 
 		}
 

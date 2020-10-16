@@ -77,7 +77,7 @@ typedef struct	s_game
 	float		old_trend_y;
 	double		vision_x;
 	double		vision_y;
-
+	int 		color;
 	float		*wall_dist_arr;
 
 	float		old_plane_x;
