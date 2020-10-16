@@ -1,11 +1,11 @@
 R  680 580
 C  33,33,33
 F  66,66,66
-NO  ./textures/northwall_64x64.xpm
-SO  ./textures/southwall_64x64.xpm
-WE  ./textures/westwall_64x64.xpm
-EA  ./textures/eastwall_64x64.xpm
-S  ./textures/sprite_64x64.xpm
+NO  /home/home/work/cub3d/my/textures/xpm/walls/64/colorstone.xpm
+SO  /home/home/work/cub3d/my/textures/xpm/walls/64/greystone.xpm
+WE  /home/home/work/cub3d/my/textures/xpm/walls/64/mossy.xpm
+EA  /home/home/work/cub3d/my/textures/xpm/walls/64/redbrick.xpm
+S  /home/home/work/cub3d/my/textures/xpm/sprites/r2d2.xpm
 
 1111111111111111111111111111 11111111111111
 1000000000000000000000000000111111111111111
