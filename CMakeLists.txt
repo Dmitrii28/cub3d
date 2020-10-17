@@ -34,6 +34,8 @@ add_executable(my
         base/ft_key_scan.c
         base/ft_game_first_param.c
         base/ft_full_window.c
+        base/ft_xmp_to_img.c
+        base/ft_dist_and_dot_wall.c
         error/error_1.c
         libft/ft_atoi.c
         libft/ft_bzero.c

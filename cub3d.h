@@ -44,12 +44,15 @@
 
 typedef struct  s_img
 {
-	void        *img;
+	void        *img_ptr;
 	char        *addr;
 	int         bits_per_pixel;
-	int         line_length;
+	int         line_len;
 	int         endian;
+	int			width;
+	int 		height;
 }               t_img;
+
 typedef struct	s_key
 {
 	int			w;
@@ -60,10 +63,8 @@ typedef struct	s_key
 	int			right;
 }				t_key;
 
-typedef struct	s_game
+typedef struct	s_player
 {
-	float		start_pl_x;
-	float 		start_pl_y;
 	float 		delta_x; //////////////////////////////////////// нада ???????
 	float 		delta_y;
 
@@ -73,6 +74,8 @@ typedef struct	s_game
 	float		turn_speed;
 	float		trend_x;
 	float		trend_y;
+	float 		xray_trd;
+	float 		yray_trd;
 	float		old_trend_x;
 	float		old_trend_y;
 	double		vision_x;
@@ -82,7 +85,7 @@ typedef struct	s_game
 
 	float		old_plane_x;
 	float		old_plane_y;
-}				t_game;
+}				t_player;   //t_game
 
 typedef	struct	s_data
 {
@@ -115,21 +118,27 @@ typedef	struct	s_data
     int			spawn_point_x;
     int			spawn_point_y;
 }				t_data;
+typedef struct	s_wall
+{
 
+}				t_wall;
 typedef struct	s_mlx
 {
 	t_data		*prm;
 	int			exit;
 	int			x_resolut;
 	int			y_resolut;
-
-
+	t_img		img;
+	t_img		no_img;
+	t_img		so_img;
+	t_img		we_img;
+	t_img		ea_img;
+	t_img		s_img;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			x_win;
 	int			y_win;
-	t_img		img;
-	t_game		game;
+	t_player	pl;
 	t_key		key;
 /*	t_sdf		*opts;
 
@@ -179,8 +188,10 @@ int 	ft_key_scan(t_mlx *mlx);
 int		ft_game_first_param(t_mlx *mlx);
 int		ft_full_window(t_mlx *mlx);
 void 	ft_draw_map(t_mlx *mlx);
-void	ft_put_player(t_mlx *mlx);
+void	ft_dist_and_dot_wall(t_mlx *mlx);
 void		ft_draw_sky(t_mlx *mlx);
+int 	ft_xpm_to_img(t_mlx *mlx);
+void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 #endif
 
 
