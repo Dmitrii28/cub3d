@@ -30,9 +30,9 @@ int		ft_realloc_line(t_data *prm, int str_n, int max_width)
 		if (!(temp[n] = (char*)malloc((max_width + 1) * sizeof(char))))
 			return (ft_free_array(temp, n - 1)); /////// возвращает 100 ошибка маллока
 		i = 0;
-		while (prm->map_array[n][i])
+		while (prm->map_arr[n][i])
 		{
-			temp[n][i] = prm->map_array[n][i];
+			temp[n][i] = prm->map_arr[n][i];
 			i++;
 		}
 		while (i < max_width)
@@ -40,25 +40,25 @@ int		ft_realloc_line(t_data *prm, int str_n, int max_width)
 		temp[n++][i] = '\0';
 	}
 	temp[n] = NULL;
-	ft_free_array(prm->map_array, n);
-	prm->map_array = temp;
+	ft_free_array(prm->map_arr, n);
+	prm->map_arr = temp;
 	temp = NULL;
 	return (0); ///////// дописать и добавить удаление первых пустых строк  и проверит
 
 /*
 	if (!(temp = (char*)malloc((max_width + 1) * sizeof(char))))
 		return (100); ////обработать ошибку
-	while (prm->map_array[str_n][i] != '\0')
+	while (prm->map_arr[str_n][i] != '\0')
 	{
-		temp[i] = prm->map_array[str_n][i];
+		temp[i] = prm->map_arr[str_n][i];
 		i++;
 	}
 		while (i < max_width)
 		temp[i++] = ' ';
 	temp[i] = '\0';
 
-	free(prm->map_array[str_n]);
-	prm->map_array[str_n] = temp;
+	free(prm->map_arr[str_n]);
+	prm->map_arr[str_n] = temp;
 	temp = NULL;*/
 
 }
@@ -107,8 +107,8 @@ int ft_parser(char *argv, t_data *prm)
 		return (131);
 	while (prm->str_n > i)
 	{
-		printf("------- str %d prm->map_array >%s<\n", i, prm->map_array[i]);
-		temp_width = ft_strlen(prm->map_array[i]);
+		printf("------- str %d prm->map_arr >%s<\n", i, prm->map_arr[i]);
+		temp_width = ft_strlen(prm->map_arr[i]);
 		max_width = (max_width < temp_width) ? temp_width : max_width;
 		i++;
 	}
@@ -125,11 +125,11 @@ int ft_parser(char *argv, t_data *prm)
 /*
 	while(str_n >= 0)
 	{
-		if((ft_strlen(prm->map_array[str_n])) < max_width)
+		if((ft_strlen(prm->map_arr[str_n])) < max_width)
 		{
 			if((prm->exit = ft_realloc_line(prm, str_n, max_width)))
 			{
-				//free all map_array;
+				//free all map_arr;
 				return (prm->exit);
 			}
 		}
@@ -147,17 +147,17 @@ int ft_parser(char *argv, t_data *prm)
 	printf("ceiling %x\n", prm->ceiling);
 	prm->str_n = 0;
 
-	if (prm->map_array)
+	if (prm->map_arr)
 	{
-		while (prm->map_array[prm->str_n] != NULL)
+		while (prm->map_arr[prm->str_n] != NULL)
 		{
-			//printf("!!! >%s<\n", prm->map_array[prm->str_n]);
+			//printf("!!! >%s<\n", prm->map_arr[prm->str_n]);
 			prm->str_n++;
 		}
 	}
 	else
 		printf("!!! >%s<\n", "error - массив не создан");
-	//printf("!!! >str #%d %s<\n", prm->str_n, prm->map_array[prm->str_n]);
+	//printf("!!! >str #%d %s<\n", prm->str_n, prm->map_arr[prm->str_n]);
 
 
 

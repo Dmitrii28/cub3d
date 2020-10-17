@@ -20,14 +20,14 @@ int    ft_make_array(t_data *prm, int str_n)
 		return (100); //// ошибка малллока
 	while (str_n > i)
 	{
-		temp_arr[i] = prm->map_array[i];
+		temp_arr[i] = prm->map_arr[i];
 		i++;
 	}
 	temp_arr[i++] = ft_strdup(prm->line);
 	temp_arr[i] = NULL; //// добавить эту строку ??????
-	if (prm->map_array)
-		free(prm->map_array);
-	prm->map_array = temp_arr;
+	if (prm->map_arr)
+		free(prm->map_arr);
+	prm->map_arr = temp_arr;
 	temp_arr = NULL;
 	return (0);
 }

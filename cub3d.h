@@ -80,7 +80,6 @@ typedef struct	s_player
 	float		old_trend_y;
 	double		vision_x;
 	double		vision_y;
-	unsigned int		color;
 	float		*wall_dist_arr;
 
 	float		old_plane_x;
@@ -99,7 +98,7 @@ typedef	struct	s_data
     int			floor;
     int			ceiling;
     int 		count_line;
-    char		**map_array;
+    char		**map_arr;
 	char		*line;
 	int			exit;
 	char		*msg;
@@ -120,7 +119,8 @@ typedef	struct	s_data
 }				t_data;
 typedef struct	s_wall
 {
-
+	int 		side;
+	int			color;
 }				t_wall;
 typedef struct	s_mlx
 {
@@ -134,6 +134,7 @@ typedef struct	s_mlx
 	t_img		we_img;
 	t_img		ea_img;
 	t_img		s_img;
+	t_wall		wall;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			x_win;

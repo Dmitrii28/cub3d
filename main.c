@@ -64,7 +64,7 @@ int		ft_prm_fill(t_data *prm)
 	prm->s_txr = NULL;
 	prm->floor = -1;
 	prm->ceiling = -1;
-	prm->map_array = NULL;
+	prm->map_arr = NULL;
 	prm->exit = 0;
 	prm->count_line = 0;
 	prm->msg = NULL;
@@ -91,7 +91,7 @@ int			ft_exit(t_data *prm)
 	printf("error %d\n", prm->exit);
 
 	/*
-	ft_free_array(prm->map_array, 5);
+	ft_free_array(prm->map_arr, 5);
 //	free(prm.line);
 
 	free(prm->no_txr);
@@ -121,7 +121,7 @@ int		main(int argc, char **argv)
 
 	//printf("%d\n", 5 << 10 && 5 << 2);
 /*
-	ft_free_array(prm.map_array, 5);
+	ft_free_array(prm.map_arr, 5);
 //	free(prm.line);
 
 	free(prm.no_txr);

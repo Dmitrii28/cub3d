@@ -16,13 +16,13 @@ if ((error = ft_xpm_to_img(mlx)))
 	//printf("------------------------------- mlx %x\n", mlx->mlx_ptr);
 	mlx_get_screen_size(mlx->mlx_ptr, &mlx->x_win, &mlx->y_win);
 	printf("---------------------------------------------------x (ширина) %d y (высота) %d \n", mlx->x_win, mlx->y_win);
-	printf("---------------- --------------x (длинна) %d y (строки) %d \n", ft_strlen(mlx->prm->map_array[0]), mlx->prm->str_n);
+	printf("---------------- --------------x (длинна) %d y (строки) %d \n", ft_strlen(mlx->prm->map_arr[0]), mlx->prm->str_n);
 	if (mlx->x_win > mlx->prm->x_win)
 		mlx->x_win = mlx->prm->x_win;
 	if (mlx->y_win > mlx->prm->y_win)
 		mlx->y_win = mlx->prm->y_win;
 	printf("x-win %d  y-win %d \n", mlx->x_win, mlx->y_win);
-	mlx->pl.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_array[0]) / 3;
+	mlx->pl.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_arr[0]) / 3;
 
 	//mlx->pl.delta_x = mlx->pl.delta_x / 2;
 	mlx->pl.delta_y = (float)mlx->y_win / mlx->prm->str_n / 3 ;
@@ -47,20 +47,20 @@ void 	ft_draw_map(t_mlx *mlx)
 	col = str = 0;
 	color = 0x00cccccc;
 	//mlx->img.img = mlx_new_image(mlx->mlx_ptr, mlx->x_win, mlx->y_win);
-	while (mlx->prm->map_array[str][col] != '\0')
+	while (mlx->prm->map_arr[str][col] != '\0')
 	{
 		while (x < (col + 1) * mlx->pl.delta_x)
 		{
 			str = 0;
-			while (mlx->prm->map_array[str])
+			while (mlx->prm->map_arr[str])
 			{
-				if (mlx->prm->map_array[str][col] == '1')
+				if (mlx->prm->map_arr[str][col] == '1')
 					color = 0x000000cc;
-				else if (mlx->prm->map_array[str][col] == '0')
+				else if (mlx->prm->map_arr[str][col] == '0')
 					color = 0x0000cc00;
-				else if (mlx->prm->map_array[str][col] == ' ')
+				else if (mlx->prm->map_arr[str][col] == ' ')
 					color = 0x00cc0000;
-				else if (mlx->prm->map_array[str][col] == '2')
+				else if (mlx->prm->map_arr[str][col] == '2')
 					color = 0x00454311;
 				else
 					color = 0x00003333;
