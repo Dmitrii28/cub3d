@@ -56,6 +56,7 @@ void 	ft_print_line(t_mlx *mlx, float dist, float tr)
 		{
 //////посчитать цвет
 			ft_xpos_and_color(mlx);
+			mlx->wall.img_pos += mlx->wall.img_step;
 			my_mlx_pixel_put(&mlx->img, x, y++, mlx->wall.color);
 		}
 	}
