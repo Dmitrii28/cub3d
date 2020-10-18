@@ -66,16 +66,16 @@ typedef struct	s_key
 typedef struct	s_player
 {
 	float 		delta_x; //////////////////////////////////////// нада ???????
-	float 		delta_y;
+	float 		delta_y; //////////////// для карты масштаб
 
-	float		player_x;
-	float		player_y;
+	float		pl_x;
+	float		pl_y;
 	float		walk_speed;
 	float		turn_speed;
 	float		trend_x;
 	float		trend_y;
-	float 		xray_trd;
-	float 		yray_trd;
+	float 		ray_x;
+	float 		ray_y;
 	float		old_trend_x;
 	float		old_trend_y;
 	double		vision_x;
@@ -121,6 +121,17 @@ typedef struct	s_wall
 {
 	int 		side;
 	int			color;
+	float 		delta_dist;
+	float 		crd_x;
+	float 		crd_y;
+	int 		dot_x;
+	int 		dot_y;
+	float 		img_step;
+	float 		img_pos;
+
+	int 		tex_x;
+	int 		tex_y;
+
 }				t_wall;
 typedef struct	s_mlx
 {
@@ -129,6 +140,7 @@ typedef struct	s_mlx
 	int			x_resolut;
 	int			y_resolut;
 	t_img		img;
+	t_img		wall_img;
 	t_img		no_img;
 	t_img		so_img;
 	t_img		we_img;
@@ -193,6 +205,7 @@ void	ft_dist_and_dot_wall(t_mlx *mlx);
 void		ft_draw_sky(t_mlx *mlx);
 int 	ft_xpm_to_img(t_mlx *mlx);
 void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void 	ft_print_line(t_mlx *mlx, float dist, float tr);
 #endif
 
 

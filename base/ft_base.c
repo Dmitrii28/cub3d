@@ -83,7 +83,7 @@ void 	ft_draw_map(t_mlx *mlx)
 }
 void 	ft_test(t_mlx *mlx)
 {
-	float posX = mlx->pl.player_x, posY = mlx->pl.player_y;  // начальная позиция x и y
+	float posX = mlx->pl.pl_x, posY = mlx->pl.pl_y;  // начальная позиция x и y
 	float dirX = mlx->pl.trend_x, dirY = mlx->pl.trend_y; // начальный вектор направления
 	float planeX = 0, planeY = 0.66; // 2d raycaster версия плоскости камеры
 	float time = 0; // время текущего кадра
@@ -143,7 +143,7 @@ void 	ft_base(t_data *prm)
 	mlx_hook(mlx.win_ptr, 3, 1L << 1, ft_key_off, &mlx);
 	mlx_loop_hook(mlx.mlx_ptr, ft_key_scan, &mlx);
 
-	printf("------------------------------- pl %f\n", mlx.pl.player_x);
+	printf("------------------------------- pl %f\n", mlx.pl.pl_x);
 
 
 

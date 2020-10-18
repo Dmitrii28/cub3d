@@ -28,8 +28,8 @@ void 	ft_trend_player(t_mlx *mlx)
 }
 int		ft_game_first_param(t_mlx *mlx)
 {
-	mlx->pl.player_x = (float)mlx->prm->play_x + 0.5;
-	mlx->pl.player_y = (float)mlx->prm->play_y + 0.5;
+	mlx->pl.pl_x = (float)mlx->prm->play_x + 0.5;
+	mlx->pl.pl_y = (float)mlx->prm->play_y + 0.5;
 	mlx->pl.walk_speed = 0.1;
 	mlx->pl.turn_speed = 2 * M_PI / 180; ////// 3 взял от туда
 	mlx->exit = 0;
