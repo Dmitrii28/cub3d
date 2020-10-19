@@ -8,22 +8,22 @@ void 	ft_trend_player(t_mlx *mlx)
 	if (mlx->prm->player == 'N')
 	{
 		mlx->pl.trend_y = -1;
-		mlx->pl.vision_x = tan(M_PI * 66 / 360); /////// 60 угол обзора
+		mlx->pl.vision_x = tan(M_PI * 90 / 360); /////// 60 угол обзора
 	}
 	if (mlx->prm->player == 'S')
 	{
 		mlx->pl.trend_y = 1;
-		mlx->pl.vision_x = -tan(M_PI * 66 / 360);
+		mlx->pl.vision_x = -tan(M_PI * 90 / 360);
 	}
 	if (mlx->prm->player == 'W')
 	{
 		mlx->pl.trend_x = -1;
-		mlx->pl.vision_y = -tan(M_PI * 66 /360);
+		mlx->pl.vision_y = -tan(M_PI * 90 /360);
 	}
 	if (mlx->prm->player == 'E')
 	{
 		mlx->pl.trend_x = 1;
-		mlx->pl.vision_y = tan(M_PI * 66 / 360);
+		mlx->pl.vision_y = tan(M_PI * 90 / 360);
 	}
 }
 int		ft_game_first_param(t_mlx *mlx)

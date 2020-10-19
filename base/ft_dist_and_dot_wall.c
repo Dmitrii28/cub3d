@@ -21,6 +21,9 @@ void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
 	float	ry;
 	float	rx;
 
+	//////// переделать в инты и заменить все операции точками их 4 штуки тоже
+
+
 	py = mlx->pl.pl_y;
 	px = mlx->pl.pl_x;
 	ry = mlx->pl.ray_y;
@@ -96,12 +99,32 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 		dist = sqrt(pow((mlx->pl.pl_x - mlx->wall.crd_x), 2) + pow((mlx->pl.pl_y - mlx->wall.crd_y), 2));
 		two_tr = tr + 0.5;
 		dist = dist * cos(tr);
-		printf(" dist %f delta dist %f \n", dist, mlx->wall.delta_dist);
+		//printf(" dist %f delta dist %f \n", dist, mlx->wall.delta_dist);
 		ft_print_line(mlx, dist, two_tr);
 
 
+		//printf("vi_x1 %f vi_y1 %f \n", mlx->pl.vision_x * 0.5, mlx->pl.vision_y * 0.5 ) ;
+
+		//mlx->pl.vision_x = mlx->pl.vision_x + (mlx->pl.trend_x * 0.5);
+		//mlx->pl.vision_y = mlx->pl.vision_y + (mlx->pl.trend_y * 0.5);
 		my_mlx_pixel_put(&mlx->img, mlx->pl.pl_x * mlx->pl.delta_x,
 						 mlx->pl.pl_y * mlx->pl.delta_y, 0xFFFFFFFF);
+
+		my_mlx_pixel_put(&mlx->img, (mlx->pl.pl_x + mlx->pl.vision_x * 0.5) * mlx->pl.delta_x,
+						 (mlx->pl.pl_y + mlx->pl.vision_y * 0.5) * mlx->pl.delta_y, 0x00FF00);
+		my_mlx_pixel_put(&mlx->img, (mlx->pl.pl_x - mlx->pl.vision_x * 0.5) * mlx->pl.delta_x,
+						 (mlx->pl.pl_y - mlx->pl.vision_y * 0.5) * mlx->pl.delta_y, 0x00FF00);
+
+
+		float dist3 = sqrt(pow((mlx->pl.pl_x - (mlx->pl.pl_x + mlx->pl.vision_x * 0.5)), 2) +
+					pow((mlx->pl.pl_y - (mlx->pl.pl_y + mlx->pl.vision_y * 0.5)), 2));
+
+
+
+		//printf("dist3 %f \npl_x %f pl_y %f \nvi_x %f vi_y %f \n", dist3,
+		//	   mlx->pl.pl_x, mlx->pl.pl_y, mlx->pl.vision_x, mlx->pl.vision_y ) ;
+
+
 		while (mlx->wall.delta_dist > 0.0)
 		{
 			my_mlx_pixel_put(&mlx->img,

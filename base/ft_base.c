@@ -28,7 +28,7 @@ if ((error = ft_xpm_to_img(mlx)))
 	mlx->pl.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_arr[0]) / 3;
 
 	//mlx->pl.delta_x = mlx->pl.delta_x / 2;
-	mlx->pl.delta_y = (float)mlx->y_win / mlx->prm->str_n / 3 ;
+	mlx->pl.delta_y = (float)mlx->y_win / mlx->prm->str_n / 3;
 
 	printf("delta_x %f  \n", mlx->pl.delta_x);
 	printf("delta y %f  \n", mlx->pl.delta_y);

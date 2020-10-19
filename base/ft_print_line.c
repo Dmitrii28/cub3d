@@ -45,12 +45,64 @@ void	ft_check_sprite(t_mlx *mlx, int x)
 
 while (mlx->wall.delta_dist > 0)
 {
-	if (mlx->prm->map_arr[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist + 0.001))]
-						 [(int)(mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist + 0.001))] == '2')
+	float y1 = (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist + 0.001));
+	float x1 = (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist + 0.001));
+
+	if (mlx->prm->map_arr[(int)y1][(int)x1] == '2')
 	{
 
-		dist = sqrt(pow((mlx->pl.pl_x - (int)(mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist + 0.00095)) + 0.5), 2) +
-						pow((mlx->pl.pl_y - (int)(mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist + 0.00095)) + 0.5), 2));
+		/////  прямая спрайта
+		float sp_y1 = (int)y1 + 0.5;
+		float sp_x1 = (int)x1 + 0.5;
+
+		float sp_y2 = sp_y1 + mlx->pl.vision_y;
+		float sp_x2 = sp_x1 + mlx->pl.vision_x;
+
+
+		//// луч от игрока
+		/////первая точка сам игрок
+
+		float pl_y3 = (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist + 1));
+		float pl_x3 = (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist + 1));
+
+		float x_per = ((sp_x1 * sp_y2 - sp_y1 * sp_x2) * (pl_x3 - mlx->pl.pl_x) - (sp_x1 - sp_x2) * (pl_x3 * mlx->pl.pl_y - pl_y3 * mlx->pl.pl_x)) /
+				(sp_x1 - sp_x2) * (pl_y3 - mlx->pl.pl_y) - (sp_y1 - sp_y2) * (pl_x3 - mlx->pl.pl_x);
+
+		float y_per = ((sp_x1 * sp_y2 - sp_y1 * sp_x2) * (pl_y3 - mlx->pl.pl_y) - (sp_y1 - sp_y2) * (pl_x3 * mlx->pl.pl_y - pl_y3 * mlx->pl.pl_x)) /
+					  (sp_x1 - sp_x2) * (pl_y3 - mlx->pl.pl_y) - (sp_y1 - sp_y2) * (pl_x3 - mlx->pl.pl_x);
+
+
+		////// растояние от игрока до центра спрайта
+		////dist = sqrt(pow((mlx->pl.pl_x - (int)x1 + 0.5), 2) + pow((mlx->pl.pl_y - (int)y1 + 0.5), 2));
+
+
+/////////////////
+float vis_sp_x = (((int)x1 + 0.5) + mlx->pl.vision_x * 0.5);
+float vis_sp_y = (((int)y1 + 0.5) + mlx->pl.vision_y * 0.5);
+
+
+		printf("vis_sp_x=== %f \n", vis_sp_x);
+
+
+my_mlx_pixel_put(&mlx->img, (((int)x1 + 0.5) + mlx->pl.vision_x * 0.5) * mlx->pl.delta_x,
+						 (((int)y1 + 0.5) + mlx->pl.vision_y * 0.5) * mlx->pl.delta_y, 0xffffff);
+		my_mlx_pixel_put(&mlx->img, (((int)x1 + 0.5) - mlx->pl.vision_x * 0.5) * mlx->pl.delta_x,
+						 (((int)y1 + 0.5) - mlx->pl.vision_y * 0.5) * mlx->pl.delta_y, 0xffffff);
+
+
+
+
+//printf("delta dist %f ray_y === %f\n", mlx->wall.delta_dist, mlx->pl.ray_y);
+//printf("ray_y * (delta_dist + 0.00095) === %f \n", mlx->pl.ray_y * (mlx->wall.delta_dist + 0.00095));
+//printf("(pl_y + ray_y * (delta_dist + 0.00095)) === %f \n", (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist + 0.00095)));
+//printf("(pl_x + ray_x * (delta_dist + 0.00095)) === %f \n", (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist + 0.00095)));
+
+
+
+
+////////////////
+
+
 
 
 		line_height = (int) (mlx->y_win / dist);
