@@ -124,8 +124,9 @@ typedef struct	s_wall
 	float 		delta_dist;
 	float 		crd_x;
 	float 		crd_y;
-	int 		dot_x;
-	int 		dot_y;
+	float 		mod_crd_x;
+	//float 		dist;
+	//int 		dot_y;
 	float 		img_step;
 	float 		img_pos;
 
@@ -133,6 +134,27 @@ typedef struct	s_wall
 	int 		tex_y;
 
 }				t_wall;
+typedef struct	s_spr
+{
+	float		dist_x;
+	float		dist_y;
+	float		inv_factor;
+	float		transform_x;
+	float		transform_y;
+	int			scr_x;
+	int			vert_offset;
+	int			width;
+	int			height;
+	int			start_x;
+	int			start_y;
+	int			end_x;
+	int			end_y;
+	int			tex_x;
+	int			tex_y;
+}				t_spr;
+
+
+
 typedef struct	s_mlx
 {
 	t_data		*prm;
@@ -206,6 +228,7 @@ void		ft_draw_sky(t_mlx *mlx);
 int 	ft_xpm_to_img(t_mlx *mlx);
 void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void 	ft_print_line(t_mlx *mlx, float dist, float tr);
+void	ft_draw_srite(t_mlx *mlx);
 #endif
 
 

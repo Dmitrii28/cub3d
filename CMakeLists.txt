@@ -37,6 +37,7 @@ add_executable(my
         base/ft_xmp_to_img.c
         base/ft_dist_and_dot_wall.c
         base/ft_print_line.c
+        base/ft_draw_srite.c
         error/error_1.c
         libft/ft_atoi.c
         libft/ft_bzero.c

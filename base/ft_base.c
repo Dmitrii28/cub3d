@@ -9,6 +9,9 @@ int 	ft_start_win_and_xpm_to_img(t_mlx *mlx)
 	float 	dlt;
 	int 	error;
 
+
+
+
 	//error = 0;
 if ((error = ft_xpm_to_img(mlx)))
 	return (error);

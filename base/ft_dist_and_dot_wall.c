@@ -37,10 +37,12 @@ void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
 	if ((int)(px + rx * (x + dlt)) < (int)(px + rx * x) &&
 		prm->map_arr[(int)(py + ry * (x))][(int)(px + rx * (x + dlt))] == '1')
 		mlx->wall.side = 4; //синий запад
+		/*
 	if (prm->map_arr[(int)(py + ry * x)][(int)(px + rx * (x + dlt))] == '2' ||
 		prm->map_arr[(int)(py + ry * (x + dlt))][(int)(px + rx * x)] == '2')
-		mlx->wall.side = 4; //серый
-	ft_ft_temp(mlx);
+		mlx->wall.side = 5; //спрайт
+		 */
+	//ft_ft_temp(mlx);
 }
 
 
@@ -60,13 +62,13 @@ void 	ft_calc_dist(t_mlx *mlx)
 	x = 0;
 	while (dlt >= 0.00095)
 	{
-		if (ft_strchr("0NSWE", mlx->prm->map_arr
+		if (ft_strchr("0NSWE2", mlx->prm->map_arr
 		[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
 		[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
-			(ft_strchr("0NSWE", mlx->prm->map_arr
+			(ft_strchr("0NSWE2", mlx->prm->map_arr
 			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x))]
 			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
-			 ft_strchr("0NSWE", mlx->prm->map_arr
+			 ft_strchr("0NSWE2", mlx->prm->map_arr
 			 [(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
 			 [(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x))])))
 			x += dlt;
@@ -94,7 +96,9 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 		dist = sqrt(pow((mlx->pl.pl_x - mlx->wall.crd_x), 2) + pow((mlx->pl.pl_y - mlx->wall.crd_y), 2));
 		two_tr = tr + 0.5;
 		dist = dist * cos(tr);
+		printf(" dist %f delta dist %f \n", dist, mlx->wall.delta_dist);
 		ft_print_line(mlx, dist, two_tr);
+
 
 		my_mlx_pixel_put(&mlx->img, mlx->pl.pl_x * mlx->pl.delta_x,
 						 mlx->pl.pl_y * mlx->pl.delta_y, 0xFFFFFFFF);
@@ -107,6 +111,7 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 		}
 		tr += (1.f / mlx->x_win);
 	}
+	ft_draw_srite(mlx);
 }
 
 
