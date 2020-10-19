@@ -76,6 +76,7 @@ typedef struct	s_player
 	float		trend_y;
 	float 		ray_x;
 	float 		ray_y;
+	float 		tr;
 	float		old_trend_x;
 	float		old_trend_y;
 	double		vision_x;

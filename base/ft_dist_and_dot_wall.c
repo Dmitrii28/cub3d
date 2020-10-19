@@ -98,7 +98,9 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 		mlx->wall.crd_y = mlx->pl.pl_y + mlx->pl.ray_y * mlx->wall.delta_dist;
 		dist = sqrt(pow((mlx->pl.pl_x - mlx->wall.crd_x), 2) + pow((mlx->pl.pl_y - mlx->wall.crd_y), 2));
 		two_tr = tr + 0.5;
+		mlx->pl.tr = tr;
 		dist = dist * cos(tr);
+
 		//printf(" dist %f delta dist %f \n", dist, mlx->wall.delta_dist);
 		ft_print_line(mlx, dist, two_tr);
 
@@ -115,23 +117,23 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 		my_mlx_pixel_put(&mlx->img, (mlx->pl.pl_x - mlx->pl.vision_x * 0.5) * mlx->pl.delta_x,
 						 (mlx->pl.pl_y - mlx->pl.vision_y * 0.5) * mlx->pl.delta_y, 0x00FF00);
 
-
+/*
 		float dist3 = sqrt(pow((mlx->pl.pl_x - (mlx->pl.pl_x + mlx->pl.vision_x * 0.5)), 2) +
 					pow((mlx->pl.pl_y - (mlx->pl.pl_y + mlx->pl.vision_y * 0.5)), 2));
-
+*/
 
 
 		//printf("dist3 %f \npl_x %f pl_y %f \nvi_x %f vi_y %f \n", dist3,
 		//	   mlx->pl.pl_x, mlx->pl.pl_y, mlx->pl.vision_x, mlx->pl.vision_y ) ;
 
-
+/*
 		while (mlx->wall.delta_dist > 0.0)
 		{
 			my_mlx_pixel_put(&mlx->img,
 			(mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist) * mlx->pl.delta_x,
 			(mlx->pl.pl_y + mlx->pl.ray_y * mlx->wall.delta_dist) * mlx->pl.delta_y, 0x00cc9999);
 			mlx->wall.delta_dist = mlx->wall.delta_dist - 0.1;
-		}
+		}*/
 		tr += (1.f / mlx->x_win);
 	}
 	ft_draw_srite(mlx);
