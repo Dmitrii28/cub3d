@@ -56,14 +56,18 @@ while (mlx->wall.delta_dist >= 0.1)
 
 		float sp_y2 = sp_y1 + mlx->pl.vision_y;
 		float sp_x2 = sp_x1 + mlx->pl.vision_x;
-		my_mlx_pixel_put(&mlx->img, sp_x2 * mlx->pl.delta_x,
-						 sp_y2 * mlx->pl.delta_y, 0xffffff);
+		//my_mlx_pixel_put(&mlx->img, sp_x2 * mlx->pl.delta_x,
+				//		 sp_y2 * mlx->pl.delta_y, 0xffffff);
 
 		//// луч от игрока
 		/////первая точка сам игрок
-
+/*
+		float pl_y3 = y1;
+		float pl_x3 = x1;
+		 */
 		float pl_y3 = (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist));
 		float pl_x3 = (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist));
+
 
 		float x_per = ((sp_x1 * sp_y2 - sp_y1 * sp_x2) * (pl_x3 - mlx->pl.pl_x) -
 					   (sp_x1 - sp_x2) * (pl_x3 * mlx->pl.pl_y - pl_y3 * mlx->pl.pl_x)) /
@@ -75,23 +79,27 @@ while (mlx->wall.delta_dist >= 0.1)
 
 		//float dist_per_to_centr = sqrt(pow((sp_x1 - x_per), 2) + pow((sp_y1 - y_per), 2));
 
-
-		printf(" x_per %f y_per %f \n", (y_per - (int)y_per), y_per);
+		//float y_per  = 0.0; ///////////////////////////// времено добавил для проверки
+	//	float x_per = 0.0;////////////////////////////////
+	//	printf(" x_per %f y_per %f \n", (y_per - (int)y_per), y_per);
 		//printf("dist_per_to_centr %f\n", dist_per_to_centr);
 
-		if ( (float)(y_per - (int)y_per) > 0.3 ||
-				(float)(y_per - (int)y_per) < 0.7 ||
-				(float)(x_per - (int)x_per) > 0.3 ||
-				(float)(x_per - (int)x_per) < 0.7 /*dist_per_to_centr < 0.3*/)
+		if (((y_per - (int)y_per) > 0.3 && (y_per - (int)y_per) < 0.7) ||
+				((x_per - (int)x_per) > 0.3 && (x_per - (int)x_per) < 0.7 ))
 		{
 			//
-			float dist_per_to_centr = sqrt(pow((sp_x1 - x_per), 2) + pow((sp_y1 - y_per), 2));
-			float vis_sp_x = (((int) x1 + 0.5) + mlx->pl.vision_x * 0.5);
-			float vis_sp_y = (((int) y1 + 0.5) + mlx->pl.vision_y * 0.5);
+			//float dist_per_to_centr = sqrt(pow((sp_x1 - x_per), 2) + pow((sp_y1 - y_per), 2));
 
+
+			float vis_sp_x = sp_x2;
+			float vis_sp_y = sp_y2;
+			/*
+			float vis_sp_x = (sp_x1 + mlx->pl.vision_x * 0.5);
+			float vis_sp_y = (sp_y1 + mlx->pl.vision_y * 0.5);
+			*/
 			mlx->wall.mod_crd_x = sqrt(pow((vis_sp_x - x_per), 2) + pow((vis_sp_y - y_per), 2));;
 
-			printf("mlx->wall.mod_crd_x %f \n", mlx->wall.mod_crd_x);
+		//	printf("mlx->wall.mod_crd_x %f \n", mlx->wall.mod_crd_x);
 			////// растояние от игрока до центра спрайта
 			////dist = sqrt(pow((mlx->pl.pl_x - (int)x1 + 0.5), 2) + pow((mlx->pl.pl_y - (int)y1 + 0.5), 2));
 
@@ -107,8 +115,8 @@ my_mlx_pixel_put(&mlx->img, (((int)x1 + 0.5) + mlx->pl.vision_x * 0.5) * mlx->pl
 			dist = sqrt(pow((mlx->pl.pl_x - sp_x1), 2) + pow((mlx->pl.pl_y - sp_y1), 2));
 //dist = dist * cos(mlx->pl.tr);
 			line_height = (int) (mlx->y_win / dist);
-			mlx->wall.crd_x = mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist -
-							  (int) (mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist);
+			//mlx->wall.crd_x = mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist -
+							 // (int) (mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist);
 			// Рассчитываем высоту линии для рисования на экране
 			if (dist == 0)
 				dist = 0.001;
@@ -205,6 +213,7 @@ void 	ft_print_line(t_mlx *mlx, float dist, float tr)
 			ft_ypos_and_color(mlx);
 			mlx->wall.img_pos += mlx->wall.img_step;
 			my_mlx_pixel_put(&mlx->img, x, y++, mlx->wall.color);
+
 		}
 
 

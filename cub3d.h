@@ -176,6 +176,7 @@ typedef struct	s_mlx
 	int			y_win;
 	t_player	pl;
 	t_key		key;
+	int 		half_win;
 /*	t_sdf		*opts;
 
 	t_img		no_tex;

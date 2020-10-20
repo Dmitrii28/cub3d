@@ -99,6 +99,14 @@ void		ft_draw_sky(t_mlx *mlx)
 	int y, x;
 	x = y = 0;
 
+	if (mlx->half_win == 1)
+	{
+		x = 0;
+	}
+	else
+		x = 1;
+
+
 	while (x < mlx->x_win)
 	{
 		while (y < mlx->y_win / 2)
@@ -112,6 +120,7 @@ void		ft_draw_sky(t_mlx *mlx)
 			y++;
 		}
 		y = 0;
+		x++;
 		x++;
 	}
 }

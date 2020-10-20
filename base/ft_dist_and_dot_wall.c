@@ -89,6 +89,19 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 	float dist;
 
 	tr = -0.5;
+	////////////////////////////////////test
+	if (mlx->half_win == 1)
+	{
+		tr = -0.5;
+		mlx->half_win = 2;
+	}
+		else
+	{
+		tr = -0.5 + 1.f / mlx->x_win;
+		mlx->half_win = 1;
+	}
+		printf("tr %f mlx->half_win %d \n", tr, mlx->half_win);
+	////////////////////////////test
 	while (tr <= 0.5)
 	{
 		mlx->pl.ray_x = mlx->pl.trend_x * cos(tr) - mlx->pl.trend_y * sin(tr);
@@ -134,7 +147,7 @@ void	ft_dist_and_dot_wall(t_mlx *mlx)
 			(mlx->pl.pl_y + mlx->pl.ray_y * mlx->wall.delta_dist) * mlx->pl.delta_y, 0x00cc9999);
 			mlx->wall.delta_dist = mlx->wall.delta_dist - 0.1;
 		}*/
-		tr += (1.f / mlx->x_win);
+		tr += (1.f / mlx->x_win * 2);
 	}
 	ft_draw_srite(mlx);
 }
