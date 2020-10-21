@@ -2,11 +2,11 @@
 
 int		ft_full_window(t_mlx *mlx)
 {
-	ft_draw_sky(mlx);
+	//ft_draw_sky(mlx);
+
+	//ft_dist_and_dot_wall(mlx);
+	ft_print_line(mlx);
 	ft_draw_map(mlx);
-	ft_dist_and_dot_wall(mlx);
-
-
 	//mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel,
 									 // &mlx->img.line_length, &mlx->img.endian);
 

@@ -1,6 +1,7 @@
 #include "../cub3d.h"
 void	ft_forward_and_back(t_mlx *mlx, int trend)
 {
+
 	if (ft_strchr("0NSWE", mlx->prm->map_arr[(int)mlx->pl.pl_y]
 	[(int)(mlx->pl.pl_x + trend * (mlx->pl.trend_x * (mlx->pl.walk_speed + 0.3)))]))
 		mlx->pl.pl_x += trend * (mlx->pl.trend_x * mlx->pl.walk_speed);
@@ -60,7 +61,12 @@ void 	ft_turn(t_mlx *mlx, int trend)
 }
 int 	ft_key_scan(t_mlx *mlx)
 {
+
 	mlx_do_sync(mlx->mlx_ptr);
+	if (mlx->key.shift == 1)
+		mlx->pl.walk_speed = 0.06;
+	else
+		mlx->pl.walk_speed = 0.03;
 	if (mlx->key.w && !mlx->key.s)
 		ft_forward_and_back(mlx, 1);
 	if (!mlx->key.w && mlx->key.s)

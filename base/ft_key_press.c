@@ -16,7 +16,10 @@ int				ft_key_on(int key, t_mlx *mlx)
 		mlx->key.left = 1;
 	else if (key == KEY_RIGHT)
 		mlx->key.right = 1;
+	else if (key == KEY_SHIFT_L)
+		mlx->key.shift = 1;
 	return (0);
+
 }
 
 int				ft_key_off(int key, t_mlx *mlx)
@@ -33,5 +36,7 @@ int				ft_key_off(int key, t_mlx *mlx)
 		mlx->key.left = 0;
 	else if (key == KEY_RIGHT)
 		mlx->key.right = 0;
+	else if (key == KEY_SHIFT_L)
+		mlx->key.shift = 0;
 	return (0);
 }

@@ -61,6 +61,7 @@ typedef struct	s_key
 	int			d;
 	int			left;
 	int			right;
+	int 		shift;
 }				t_key;
 
 typedef struct	s_player
@@ -126,8 +127,7 @@ typedef struct	s_wall
 	float 		crd_x;
 	float 		crd_y;
 	float 		mod_crd_x;
-	//float 		dist;
-	//int 		dot_y;
+	float 		dist;
 	float 		img_step;
 	float 		img_pos;
 
@@ -225,11 +225,11 @@ int 	ft_key_scan(t_mlx *mlx);
 int		ft_game_first_param(t_mlx *mlx);
 int		ft_full_window(t_mlx *mlx);
 void 	ft_draw_map(t_mlx *mlx);
-void	ft_dist_and_dot_wall(t_mlx *mlx);
+void	ft_dist_and_dot_wall(t_mlx *mlx, int x);
 void		ft_draw_sky(t_mlx *mlx);
 int 	ft_xpm_to_img(t_mlx *mlx);
 void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void 	ft_print_line(t_mlx *mlx, float dist, float tr);
+void 	ft_print_line(t_mlx *mlx);
 void	ft_draw_srite(t_mlx *mlx);
 #endif
 
