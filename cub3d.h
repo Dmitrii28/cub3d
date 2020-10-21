@@ -25,10 +25,7 @@
 #  define KEY_M XK_m
 #  define KEY_LEFT XK_Left
 #  define KEY_RIGHT XK_Right
-#  define KEY_MINUS XK_minus
-#  define KEY_PLUS XK_equal
 #  define KEY_SHIFT_L XK_Shift_L
-#  define KEY_SPACE XK_space
 
 # define MIN_X_WIN 100
 # define MIN_Y_WIN 100
@@ -160,8 +157,6 @@ typedef struct	s_mlx
 {
 	t_data		*prm;
 	int			exit;
-	int			x_resolut;
-	int			y_resolut;
 	t_img		img;
 	t_img		wall_img;
 	t_img		no_img;
@@ -176,6 +171,12 @@ typedef struct	s_mlx
 	int			y_win;
 	t_player	pl;
 	t_key		key;
+	int 		fov;
+	float 		radian;
+	int			line_height;
+	int 		draw_start;
+	int 		draw_end;
+
 	int 		half_win;
 /*	t_sdf		*opts;
 

@@ -40,6 +40,8 @@ int		ft_game_first_param(t_mlx *mlx)
 	mlx->key.d = 0;
 	mlx->key.left = 0;
 	mlx->key.right = 0;
+	mlx->fov = 60;
+	mlx->radian = mlx->fov * M_PI / 180;
 	/////// не знаю пока что это такое
 	//if (!(mlx->pl.wall_dist_arr = (float*)malloc(sizeof(float) * \
 					mlx->x_win_size)))
