@@ -43,18 +43,18 @@ void 	ft_draw_sprite(t_mlx *mlx, float x1, float y1, int x)
 	{
 		ft_ypos_and_color(mlx);
 		mlx->wall.img_pos += mlx->wall.img_step;
-		//if (mlx->wall.color != 0x000000)
+		if (mlx->wall.color != 0x000000)
 			my_mlx_pixel_put(&mlx->img, x, y, mlx->wall.color);
 		y++;
 	}
 }
 
-int 	ft_find_in_circle(t_mlx *mlx, float x1, float y1)
+int 	ft_find_in_circle(t_mlx *mlx, float x1, float y1, float rad)
 {
 	float sp_y1 = (int)y1 + 0.5;/////
 	float sp_x1 = (int)x1 + 0.5; ////
 
-	if ((x1 - sp_x1) * (x1 - sp_x1) + (y1 - sp_y1) * (y1 - sp_y1) < 0.5)
+	if ((x1 - sp_x1) * (x1 - sp_x1) + (y1 - sp_y1) * (y1 - sp_y1) < rad)
 		return (1);
 	else
 		return (0);
@@ -77,21 +77,11 @@ int 	ft_find_cross_and_dist_to_center(t_mlx *mlx, float x1, float y1)
 	sp_x1 = mlx->spr.sp_right_x;
 	//sp_y2 = sp_y1 - mlx->pl.cam_y * 0.5;  ////меняем на новые
 	//sp_x2 = sp_x1 - mlx->pl.cam_x * 0.5; ////меняем на новые
-	mlx->spr.sp_centr_y = sp_y1;
-	mlx->spr.sp_centr_x = sp_x1;
+	mlx->spr.sp_centr_y = (int)y1 + 0.5;
+	mlx->spr.sp_centr_x = (int)x1 + 0.5; ////
 	sp_y2 = mlx->spr.sp_left_y;  ////меняем на новые
 	sp_x2 = mlx->spr.sp_left_x; ////меняем на новые
-/*
-	float y1 = sp_y1;
-	float x1 = sp_x1;
-	float y2 = sp_y2;
-	float x2 = sp_x2;
 
-	float y3 = mlx->pl.pl_y;
-	float x3 = mlx->pl.pl_x;
-	float y4 = cell_y;
-	float x4 = cell_x;
-*/
 	/*
 	float fi;
 	fi = atan(((sp_x1 - mlx->pl.pl_x) / (sp_y1 - mlx->pl.pl_y)));
@@ -111,8 +101,6 @@ mlx->spr.cross_x =((x1*y2-x2*y1)*(x3-x4)-(x4*y3-y4*x3)*(x1-x2))/((x1-x2)*(y4-y3)
 
 
 	*/
-
-
 	float pl_x3 = mlx->pl.pl_x;
 	float pl_y3 = mlx->pl.pl_y;
 	float pl_x4 = x1;
@@ -146,16 +134,24 @@ mlx->spr.cross_x =((x1*y2-x2*y1)*(x3-x4)-(x4*y3-y4*x3)*(x1-x2))/((x1-x2)*(y4-y3)
 						(sp_y1 - sp_y2) * (pl_x4 * pl_y3 - pl_y4 * pl_x3)) /
 					   ((sp_x1 - sp_x2) * (pl_y4 - pl_y3) - (sp_y1 - sp_y2) * (pl_x4 - pl_x3));
 
+	float dist = sqrt((mlx->spr.sp_centr_x - mlx->spr.cross_x) * (mlx->spr.sp_centr_x - mlx->spr.cross_x) +
+				(mlx->spr.sp_centr_y - mlx->spr.cross_y) * (mlx->spr.sp_centr_y - mlx->spr.cross_y)) ;
+	//printf(" dist %f \n", dist);
 
+
+	mlx->spr.centr_cross = dist;
+	return (dist);
+
+	/*
 	if ((((sp_x1<=mlx->spr.cross_x) && (sp_x2>=mlx->spr.cross_x) && (pl_x3<=mlx->spr.cross_x) && (pl_x4 >=mlx->spr.cross_x)) ||
 	((sp_y1<=mlx->spr.cross_y) && (sp_y2>=mlx->spr.cross_y) && (pl_y3<=mlx->spr.cross_y) && (pl_y4>=mlx->spr.cross_y))))
 		return (1);
 		//printf(" true mlx->spr.cross_x %f mlx->spr.cross_y %f \n", mlx->spr.cross_x, mlx->spr.cross_y);
 	//else
 		//printf(" false mlx->spr.cross_x %f mlx->spr.cross_y %f \n", mlx->spr.cross_x, mlx->spr.cross_y);
-return (0);
 
-	/*
+
+
 	float x3 = mlx->pl.pl_x;
 	float y3 = mlx->pl.pl_y;
 	float x4 = x1;
@@ -167,16 +163,15 @@ return (0);
 
 	mlx->spr.cross_y =  ((y3 - y4) * mlx->spr.cross_x - (x3 * y4 - x4 * y3)) / (x4 - x3);
 
-*/
+
 
 	float test = (mlx->spr.cross_x - mlx->spr.sp_left_x) * (mlx->spr.sp_right_y - mlx->spr.sp_left_y) -
 			(mlx->spr.cross_y - mlx->spr.sp_left_y) * (mlx->spr.sp_right_x - mlx->spr.sp_left_x);
 
 
 	mlx->spr.dist = sqrt(pow((sp_x1 - mlx->spr.cross_x), 2) + pow((sp_y1 - mlx->spr.cross_y), 2));
+*/
 
-	mlx->spr.sp_y1 = sp_y1;
-	mlx->spr.sp_x1 = sp_x1;
 	//mlx->spr.sp_y2 = sp_y2;
 	//mlx->spr.sp_x2 = sp_x2;;
 
@@ -207,8 +202,7 @@ void  ft_sprite_line(t_mlx *mlx, float x1, float y1)
 
 }
 
-void	ft_check_sprite(t_mlx *mlx, int x)
-{
+void	ft_check_sprite(t_mlx *mlx, int x) {
 	float y1;
 	float x1;
 	float y1_t;
@@ -220,44 +214,39 @@ void	ft_check_sprite(t_mlx *mlx, int x)
 	float cross_x;
 	float cross_y;
 
-	while (mlx->wall.delta_dist > 0)
-	{
+	while (mlx->wall.delta_dist > 0) {
 		y1 = (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist));
 		x1 = (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist));
 
-
-		if (mlx->prm->map_arr[(int)y1][(int)x1] == '2') {
+		if (mlx->prm->map_arr[(int) y1][(int) x1] == '2') {
 			//
 			//printf("dist %f\n", mlx->spr.dist);
-			if (ft_find_in_circle(mlx, x1, y1)) {
+			if (ft_find_in_circle(mlx, x1, y1, 0.5)) {
+				mlx->spr.sp_y1 = y1;
+				mlx->spr.sp_x1 = x1;
+
 				/////найдем прямую у спрайта
 				ft_sprite_line(mlx, x1, y1);
-				/*
+
 				ft_find_cross_and_dist_to_center(mlx, x1, y1);
-				sp_y1 = mlx->spr.sp_y1;
-				sp_x1 = mlx->spr.sp_x1;
-				sp_y2 = mlx->spr.sp_y2;
-				sp_x2 = mlx->spr.sp_x2;
-*/
-			if (ft_find_cross_and_dist_to_center(mlx, x1, y1))
-			{
-				cross_x = mlx->spr.cross_x;
-				cross_y = mlx->spr.cross_y;
-
-				mlx->wall.mod_crd_x = sqrt(
-						pow((mlx->spr.sp_left_x - cross_x), 2) + pow((mlx->spr.sp_left_y - cross_y), 2));
-				ft_draw_sprite(mlx, x1, y1, x);
-			}
+				//printf(" centr_cross %f  sp_centr_x %f  cross_x %f  sp_centr_y %f  cross_y %f\n", mlx->spr.centr_cross, mlx->spr.sp_centr_x, mlx->spr.cross_x, mlx->spr.sp_centr_y, mlx->spr.cross_y);
+				if (mlx->spr.centr_cross < 0.5) {
 
 
+					//printf(" dist %f \n", dist);
+					cross_x = mlx->spr.cross_x;
+					cross_y = mlx->spr.cross_y;
 
-
+					mlx->wall.mod_crd_x = sqrt(
+							pow((mlx->spr.sp_left_x - cross_x), 2) + pow((mlx->spr.sp_left_y - cross_y), 2));
+					ft_draw_sprite(mlx, x1, y1, x);
+				}
 			}
 		}
+			while ((int) y1 == (int) (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist - 0.4)) &&
+				   (int) x1 == (int) (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist - 0.4)))
+				mlx->wall.delta_dist -= 0.4;
+			mlx->wall.delta_dist -= 0.1;  /////////разобратся
 
-		while ((int)y1 == (int)(mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist - 0.4)) &&
-				(int)x1 == (int)(mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist - 0.4)))
-			mlx->wall.delta_dist -= 0.4;
-		mlx->wall.delta_dist -= 0.1;  /////////разобратся
 	}
 }

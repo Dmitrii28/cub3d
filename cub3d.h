@@ -143,6 +143,7 @@ typedef struct	s_spr
 	float		sp_right_x;
 	float 		cross_x;
 	float 		cross_y;
+	float 		centr_cross;
 	float		dist;
 }				t_spr;
 
