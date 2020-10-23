@@ -25,10 +25,10 @@ if ((error = ft_xpm_to_img(mlx)))
 	if (mlx->y_win > mlx->prm->y_win)
 		mlx->y_win = mlx->prm->y_win;
 	printf("x-win %d  y-win %d \n", mlx->x_win, mlx->y_win);
-	mlx->pl.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_arr[0]) / 3;
+	mlx->pl.delta_x = (float)mlx->x_win / ft_strlen(mlx->prm->map_arr[0]);
 
 	//mlx->pl.delta_x = mlx->pl.delta_x / 2;
-	mlx->pl.delta_y = (float)mlx->y_win / mlx->prm->str_n / 3;
+	mlx->pl.delta_y = (float)mlx->y_win / mlx->prm->str_n;
 
 	printf("delta_x %f  \n", mlx->pl.delta_x);
 	printf("delta y %f  \n", mlx->pl.delta_y);

@@ -3,27 +3,27 @@ void 	ft_trend_player(t_mlx *mlx)
 {
 	mlx->pl.trend_x = 0;
 	mlx->pl.trend_y = 0;
-	mlx->pl.vision_x = 0;
-	mlx->pl.vision_y = 0;
+	mlx->pl.cam_x = 0;
+	mlx->pl.cam_y = 0;
 	if (mlx->prm->player == 'N')
 	{
 		mlx->pl.trend_y = -1;
-		mlx->pl.vision_x = tan(M_PI * 90 / 360); /////// 60 угол обзора
+		mlx->pl.cam_x = tan(M_PI * 90 / 360); /////// 60 угол обзора
 	}
 	if (mlx->prm->player == 'S')
 	{
 		mlx->pl.trend_y = 1;
-		mlx->pl.vision_x = -tan(M_PI * 90 / 360);
+		mlx->pl.cam_x = -tan(M_PI * 90 / 360);
 	}
 	if (mlx->prm->player == 'W')
 	{
 		mlx->pl.trend_x = -1;
-		mlx->pl.vision_y = -tan(M_PI * 90 /360);
+		mlx->pl.cam_y = -tan(M_PI * 90 /360);
 	}
 	if (mlx->prm->player == 'E')
 	{
 		mlx->pl.trend_x = 1;
-		mlx->pl.vision_y = tan(M_PI * 90 / 360);
+		mlx->pl.cam_y = tan(M_PI * 90 / 360);
 	}
 }
 int		ft_game_first_param(t_mlx *mlx)

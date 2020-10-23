@@ -77,8 +77,8 @@ typedef struct	s_player
 	float 		tr;
 	float		old_trend_x;
 	float		old_trend_y;
-	double		vision_x;
-	double		vision_y;
+	double		cam_x;
+	double		cam_y;
 	float		*wall_dist_arr;
 
 	float		old_plane_x;
@@ -127,28 +127,23 @@ typedef struct	s_wall
 	float 		dist;
 	float 		img_step;
 	float 		img_pos;
-
 	int 		tex_x;
 	int 		tex_y;
 
 }				t_wall;
 typedef struct	s_spr
 {
-	float		dist_x;
-	float		dist_y;
-	float		inv_factor;
-	float		transform_x;
-	float		transform_y;
-	int			scr_x;
-	int			vert_offset;
-	int			width;
-	int			height;
-	int			start_x;
-	int			start_y;
-	int			end_x;
-	int			end_y;
-	int			tex_x;
-	int			tex_y;
+	float		sp_centr_y;
+	float		sp_centr_x;
+	float 		sp_y1;
+	float 		sp_x1;
+	float		sp_left_y;
+	float		sp_left_x;
+	float		sp_right_y;
+	float		sp_right_x;
+	float 		cross_x;
+	float 		cross_y;
+	float		dist;
 }				t_spr;
 
 
@@ -165,6 +160,8 @@ typedef struct	s_mlx
 	t_img		ea_img;
 	t_img		s_img;
 	t_wall		wall;
+	t_spr		spr;
+
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			x_win;
@@ -192,13 +189,7 @@ typedef struct	s_mlx
 }				t_mlx;
 
 
-typedef struct  s_d {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_d;
+
 
 
 
@@ -231,7 +222,8 @@ void		ft_draw_sky(t_mlx *mlx);
 int 	ft_xpm_to_img(t_mlx *mlx);
 void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void 	ft_print_line(t_mlx *mlx);
-void	ft_draw_srite(t_mlx *mlx);
+void 	ft_ypos_and_color(t_mlx *mlx);
+void	ft_check_sprite(t_mlx *mlx, int x);
 #endif
 
 
