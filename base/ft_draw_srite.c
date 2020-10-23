@@ -9,7 +9,7 @@ void	ft_img_pos_and_step_sprite(t_mlx *mlx, int line_height, int draw_start)
 	mlx->wall.img_pos = (draw_start - mlx->y_win / 2 + line_height / 2) * mlx->wall.img_step;
 }
 
-void 	ft_draw_sprite(t_mlx *mlx, float sp_x1, float sp_y1, int x)
+void 	ft_draw_sprite(t_mlx *mlx, float x1, float y1, int x)
 {
 	int 	y;
 	int 	line_height;
@@ -19,14 +19,15 @@ void 	ft_draw_sprite(t_mlx *mlx, float sp_x1, float sp_y1, int x)
 
 	//float cos =
 
-
-	//dist = sqrt((mlx->pl.pl_x - sp_x1) * (mlx->pl.pl_x - sp_x1) +
-				//(mlx->pl.pl_y - sp_y1) * (mlx->pl.pl_y - sp_y1)) * cos(mlx->pl.tr);
-
-	dist = sqrt((mlx->pl.pl_x - mlx->spr.sp_centr_x) * (mlx->pl.pl_x - mlx->spr.sp_centr_x) +
-				(mlx->pl.pl_y - mlx->spr.sp_centr_y) * (mlx->pl.pl_y - mlx->spr.sp_centr_y));
+	float dist_centr = sqrt((mlx->pl.pl_x - mlx->spr.sp_centr_x) * (mlx->pl.pl_x - mlx->spr.sp_centr_x) +
+				(mlx->pl.pl_y - mlx->spr.sp_centr_y) * (mlx->pl.pl_y - mlx->spr.sp_centr_y)) ;
+	dist = sqrt((mlx->pl.pl_x - mlx->spr.cross_x) * (mlx->pl.pl_x - mlx->spr.cross_x) +
+				(mlx->pl.pl_y - mlx->spr.cross_y) * (mlx->pl.pl_y - mlx->spr.cross_y)) ;
+	//dist = dist * (dist_centr / dist * 0.8);
+	//dist = sqrt((mlx->pl.pl_x - mlx->spr.sp_centr_x) * (mlx->pl.pl_x - mlx->spr.sp_centr_x) +
+				//(mlx->pl.pl_y - mlx->spr.sp_centr_y) * (mlx->pl.pl_y - mlx->spr.sp_centr_y));
 	//if (dist > 2)
-	//	dist = dist * cos(mlx->pl.tr * 0.8);
+		dist = dist * cos(mlx->pl.tr);
 
 
 
@@ -245,7 +246,7 @@ void	ft_check_sprite(t_mlx *mlx, int x)
 
 				mlx->wall.mod_crd_x = sqrt(
 						pow((mlx->spr.sp_left_x - cross_x), 2) + pow((mlx->spr.sp_left_y - cross_y), 2));
-				ft_draw_sprite(mlx, cross_x, cross_y, x);
+				ft_draw_sprite(mlx, x1, y1, x);
 			}
 
 
@@ -253,11 +254,10 @@ void	ft_check_sprite(t_mlx *mlx, int x)
 
 			}
 		}
-		while ((int)y1 ==
-			(int)(mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist - 0.2)) &&
-				(int)x1 ==
-				(int)(mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist - 0.2)))
-			mlx->wall.delta_dist -= 0.2;
-		mlx->wall.delta_dist -= 0.005;  /////////разобратся
+
+		while ((int)y1 == (int)(mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist - 0.4)) &&
+				(int)x1 == (int)(mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist - 0.4)))
+			mlx->wall.delta_dist -= 0.4;
+		mlx->wall.delta_dist -= 0.1;  /////////разобратся
 	}
 }
