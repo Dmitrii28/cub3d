@@ -37,8 +37,10 @@ add_executable(my
         base/ft_xmp_to_img.c
         base/ft_dist_and_dot_wall.c
         base/ft_print_line.c
-        base/ft_draw_srite.c
-        error/error_1.c
+        base/ft_draw_sprite.c
+        base/ft_screenshot.c
+        exit/ft_exit.c
+        exit/error_1.c
         libft/ft_atoi.c
         libft/ft_bzero.c
         libft/ft_calloc.c
@@ -93,7 +95,7 @@ add_executable(my
         parser/ft_make_array.c
         parser/ft_take_param.c
         parser/ft_take_param_2.c
-        parser/parser.c
+        parser/ft_parser.c
         cub3d.h
         main.c)
 

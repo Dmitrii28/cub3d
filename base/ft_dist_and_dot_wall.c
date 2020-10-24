@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
+static	void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
 {
 	int y_delt;
 	int y_crd;
@@ -21,7 +21,7 @@ void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
 		mlx->wall.side = 4;
 }
 
-void 	ft_calc_dist(t_mlx *mlx)
+static	void 	ft_calc_dist(t_mlx *mlx)
 {
 	float 	dlt;
 	float 	x;
@@ -31,14 +31,14 @@ void 	ft_calc_dist(t_mlx *mlx)
 	while (dlt >= 0.0009)
 	{
 		if (ft_strchr("0NSWE2", mlx->prm->map_arr
-		[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
-		[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
+			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
+			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
 			(ft_strchr("0NSWE2", mlx->prm->map_arr
 			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x))]
 			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
-			 ft_strchr("0NSWE2", mlx->prm->map_arr
-			 [(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
-			 [(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x))])))
+			ft_strchr("0NSWE2", mlx->prm->map_arr
+			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
+			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x))])))
 			x += dlt;
 		else
 			dlt = dlt / 10;
@@ -51,19 +51,22 @@ void	ft_dist_and_dot_wall(t_mlx *mlx, int x)
 {
 	float tr;
 
-	tr = -mlx->radian * 0.5 + mlx->radian / mlx->x_win * x;
-
-
+	tr = -(mlx->radian * 0.5) + mlx->radian / mlx->x_win * x;
 	mlx->pl.tr = tr;
-
-
 	mlx->pl.ray_x = mlx->pl.trend_x * cos(tr) - mlx->pl.trend_y * sin(tr);
 	mlx->pl.ray_y = mlx->pl.trend_x * sin(tr) + mlx->pl.trend_y * cos(tr);
 	ft_calc_dist(mlx);
+
+
+	printf("x %f y %f \n", mlx->pl.pl_x, mlx->pl.pl_y);
+
+
+
 	mlx->wall.crd_x = mlx->pl.pl_x + mlx->pl.ray_x * mlx->wall.delta_dist;
 	mlx->wall.crd_y = mlx->pl.pl_y + mlx->pl.ray_y * mlx->wall.delta_dist;
-	//dist = sqrt(pow((mlx->pl.pl_x - mlx->wall.crd_x), 2) + pow((mlx->pl.pl_y - mlx->wall.crd_y), 2));
-	mlx->wall.dist = mlx->wall.delta_dist  * cos(tr);
+	mlx->wall.dist = sqrt((mlx->pl.pl_x - mlx->wall.crd_x) * (mlx->pl.pl_x -
+		mlx->wall.crd_x) + (mlx->pl.pl_y - mlx->wall.crd_y) *
+		(mlx->pl.pl_y - mlx->wall.crd_y)) * cos(tr);
 	mlx->line_height = (int)(mlx->y_win / mlx->wall.dist);
 	if (mlx->line_height % 2 != 0)
 		mlx->line_height--;

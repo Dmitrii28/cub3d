@@ -17,13 +17,15 @@ int				ft_key_on(int key, t_mlx *mlx)
 	else if (key == KEY_RIGHT)
 		mlx->key.right = 1;
 	else if (key == KEY_SHIFT_L)
-		mlx->key.shift = 1;
+		mlx->pl.walk_speed = 0.06;
 	return (0);
-
 }
 
 int				ft_key_off(int key, t_mlx *mlx)
 {
+	//mlx_do_sync(mlx->mlx_ptr);
+	if (key == KEY_ESC)
+		ft_close(mlx);
 	if (key == KEY_W)
 		mlx->key.w = 0;
 	else if (key == KEY_A)
@@ -37,6 +39,6 @@ int				ft_key_off(int key, t_mlx *mlx)
 	else if (key == KEY_RIGHT)
 		mlx->key.right = 0;
 	else if (key == KEY_SHIFT_L)
-		mlx->key.shift = 0;
+		mlx->pl.walk_speed = 0.03;
 	return (0);
 }

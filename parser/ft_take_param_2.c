@@ -4,7 +4,7 @@ int 	ft_take_param_r(char *temp, t_data *prm, int i)
 	if (!(ft_strncmp(temp, "R ", 2)))
 	{
 		if (prm->x_win != -1)
-			return ((prm->msg = ft_strdup("R")) ? 111 : 100); ///// двойная строка или ошибка маллока
+			return (125); ///// двойная строка или ошибка маллока
 		prm->x_win = ft_atoi(&temp[i]);
 		while (temp[i] == ' ')
 			i++;
@@ -58,54 +58,58 @@ int		ft_final_color(char **arr, t_data *prm, char fc_color) ///// сделать
 
 int 	ft_take_param_f(char *temp, t_data *prm, int i, int count_ch)
 {
-	int		str;
-
-	str = 0;
 	if (!(ft_strncmp(temp, "F ", 2)))
 	{
 		if (prm->floor != -1)
-			return ((prm->msg = ft_strdup("F")) ? 111 : 100); ///// двойная строка или ошибка маллока
+			return (127); ///// двойная строка
+		if (!(temp = ft_strtrim(&temp[2], " ")))
+			return (100);
 		while (temp[i] != '\0')
+		{
+			if (!(ft_strchr(",0123456789", temp[i])))
+				return (115); ///// неверный формат floor
 			if (temp[i++] == ',')
 				count_ch++;
-		if (!(prm->color_arr = ft_split(&temp[2], ',')))
+		}
+		if (count_ch != 2)
+			return (115); ///// неверный формат floor
+		if (!(prm->color_arr = ft_split(temp, ',')))
 			return (100); /////ошибка маллока
-		while (prm->color_arr[str] != NULL)
-			str++;
-		if (str != 3 || count_ch != 2)
-			return (114); ///// неверный формат floor
+		free(temp);
 	}
 	else
 		return (110); /////неверно начинается строка
 	if ((prm->exit = ft_final_color(prm->color_arr, prm, 'F')))
 		return (prm->exit);
-	ft_free_array(prm->color_arr, str - 1);
+	ft_free_array(prm->color_arr, 2);
 	return (0);
 }
 int 	ft_take_param_c(char *temp, t_data *prm, int i, int count_ch)
 {
-	int		str;
-
-	str = 0;
 	if (!(ft_strncmp(temp, "C ", 2)))
 	{
 		if (prm->ceiling != -1)
-			return ((prm->msg = ft_strdup("C")) ? 111 : 100); ///// двойная строка или ошибка маллока
+			return (127); ///// двойная строка
+		if (!(temp = ft_strtrim(&temp[2], " ")))
+			return (100);
 		while (temp[i] != '\0')
+		{
+			if (!(ft_strchr(",0123456789", temp[i])))
+				return (115); ///// неверный формат floor
 			if (temp[i++] == ',')
 				count_ch++;
-		if (!(prm->color_arr = ft_split(&temp[2], ',')))
-			return (100); /////ошибка маллока
-		while (prm->color_arr[str])
-			str++;
-		if (str != 3 || count_ch != 2)
+		}
+			if (count_ch != 2)
 			return (115); ///// неверный формат floor
+		if (!(prm->color_arr = ft_split(temp, ',')))
+			return (100); /////ошибка маллока
+		free(temp);
 	}
 	else
 		return (110); /////неверно начинается строка
 	if ((prm->exit = ft_final_color(prm->color_arr, prm, 'C')))
 		return (prm->exit);
-	ft_free_array(prm->color_arr, str - 1);
+	ft_free_array(prm->color_arr, 2);
 	return (0);
 }
 

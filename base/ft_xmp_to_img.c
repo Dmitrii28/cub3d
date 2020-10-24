@@ -22,10 +22,6 @@ int 	ft_img_id_to_addr(t_mlx *mlx)
 		&mlx->s_img.bits_per_pixel, &mlx->s_img.line_len,
 		&mlx->s_img.endian)))
 		return (210);
-	printf("img ------------------------------------------------ %d\n", mlx->so_img.addr[2232]);
-	printf("img   %d\n", mlx->s_img.line_len);
-	printf("img   %d\n", mlx->no_img.height);
-	printf("img   %d\n", mlx->s_img.bits_per_pixel);
 	return (0);
 }
 

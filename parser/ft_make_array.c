@@ -9,9 +9,9 @@ int    ft_make_array(t_data *prm, int str_n)
 	i = 0;
 	while (prm->line[i] && prm->line[i] == ' ')
 		i++;
-	if ((prm->line[i] == '\0' ) && str_n == 0)
+	if ((prm->line[i] == '\0') && str_n == 0)
 		return (1);
-	if ((prm->line[i] == '\0' ) && str_n != 0)
+	if ((prm->line[i] == '\0') && str_n != 0 && i == 0)
 		return (90);
 	if ((prm->line[i] != '\0') && str_n != 0 && prm->exit == 90)
 		return (130); ///// пустая строка в карте

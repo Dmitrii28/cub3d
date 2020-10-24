@@ -1,5 +1,5 @@
 # include "../cub3d.h"
-int 	ft_chek_textur(t_data *prm)
+int 	ft_textr(t_data *prm)
 {
 	if ((ft_check_file(prm->no_txr, "xpm")) == 1 ||
 		(ft_check_file(prm->so_txr, "xpm")) == 1 ||
@@ -19,7 +19,7 @@ int		ft_take_param_s(char *temp, t_data *prm)
 		if (!(ft_strncmp(temp, "SO ", 3)))
 		{
 			if (prm->so_txr)
-				return ((prm->msg = ft_strdup("SO")) ? 111 : 100); ///// двойная строка или ошибка маллока
+				return (120); ///// двойная строка или ошибка маллока
 			if (!(prm->so_txr = ft_strtrim(&temp[3], " ")))
 				return (100); //// ошибка малллок
 			prm->count_line++;
@@ -27,7 +27,7 @@ int		ft_take_param_s(char *temp, t_data *prm)
 		else if (!(ft_strncmp(temp, "S ", 2)))
 		{
 			if (prm->s_txr)
-				return ((prm->msg = ft_strdup("S")) ? 111 : 100); ///// двойная строка или ошибка маллока
+				return (121); ///// двойная строка или ошибка маллока
 			if (!(prm->s_txr = ft_strtrim(&temp[2], " ")))
 				return (100); //// ошибка малллок
 			prm->count_line++;
@@ -44,7 +44,7 @@ int 	ft_take_param_no_we(char *temp, t_data *prm)
 		if (!(ft_strncmp(temp, "NO ", 3)))
 		{
 			if (prm->no_txr)
-				return ((prm->msg = ft_strdup("NO")) ? 111 : 100); ///// двойная строка или ошибка маллока
+				return (122); ///// двойная строка или ошибка маллока
 			if (!(prm->no_txr = ft_strtrim(&temp[3], " ")))
 				return (100); //// ошибка малллок
 			prm->count_line++;
@@ -52,7 +52,7 @@ int 	ft_take_param_no_we(char *temp, t_data *prm)
 		else if (!(ft_strncmp(temp, "WE ", 3)))
 		{
 			if (prm->we_txr)
-				return ((prm->msg = ft_strdup("WE")) ? 111 : 100); ///// двойная строка или ошибка маллока
+				return (123); ///// двойная строка или ошибка маллока
 			if (!(prm->we_txr = ft_strtrim(&temp[3], " ")))
 				return (100); //// ошибка малллок
 			prm->count_line++;
@@ -69,7 +69,7 @@ int 	ft_take_param_ea(char *temp, t_data *prm)
 		if (!(ft_strncmp(temp, "EA ", 3)))
 		{
 			if (prm->ea_txr)
-				return ((prm->msg = ft_strdup("EA")) ? 111 : 100); ///// двойная строка или ошибка маллока
+				return (124); ///// двойная строка или ошибка маллока
 			if (!(prm->ea_txr = ft_strtrim(&temp[3], " ")))
 				return (100); //// ошибка малллок
 			prm->count_line++;

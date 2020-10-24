@@ -17,18 +17,29 @@
 #  define XK_LATIN1
 #  include <X11/keysymdef.h>
 
+
+#include <errno.h>
+
+#define MLX_SYNC_IMAGE_WRITABLE		1
+#define MLX_SYNC_WIN_FLUSH_CMD		2
+#define MLX_SYNC_WIN_CMD_COMPLETED	3
+
+
+
+
+
+
+
+
 #  define KEY_ESC XK_Escape
 #  define KEY_W XK_w
 #  define KEY_A XK_a
 #  define KEY_S XK_s
 #  define KEY_D XK_d
-#  define KEY_M XK_m
 #  define KEY_LEFT XK_Left
 #  define KEY_RIGHT XK_Right
 #  define KEY_SHIFT_L XK_Shift_L
 
-# define MIN_X_WIN 100
-# define MIN_Y_WIN 100
 
 #include "libft/libft.h"
 #include "libft/get_next_line.h"
@@ -65,7 +76,6 @@ typedef struct	s_player
 {
 	float 		delta_x; //////////////////////////////////////// нада ???????
 	float 		delta_y; //////////////// для карты масштаб
-
 	float		pl_x;
 	float		pl_y;
 	float		walk_speed;
@@ -75,14 +85,8 @@ typedef struct	s_player
 	float 		ray_x;
 	float 		ray_y;
 	float 		tr;
-	float		old_trend_x;
-	float		old_trend_y;
 	double		cam_x;
 	double		cam_y;
-	float		*wall_dist_arr;
-
-	float		old_plane_x;
-	float		old_plane_y;
 }				t_player;   //t_game
 
 typedef	struct	s_data
@@ -100,21 +104,12 @@ typedef	struct	s_data
     char		**map_arr;
 	char		*line;
 	int			exit;
-	char		*msg;
 	int 		str_n;
 	char 		**color_arr;
 	int 		play_x;
 	int 		play_y;
 	char		player;
-
-    int			gnl_ret;
-    int			screenshot;
-    int			pars_map_started;
-    int			max_mapline_len;
-    int			prior_spaces_mapline;
-    int			map_row_index;
-    int			spawn_point_x;
-    int			spawn_point_y;
+	int 		screenshot;
 }				t_data;
 typedef struct	s_wall
 {
@@ -133,18 +128,15 @@ typedef struct	s_wall
 }				t_wall;
 typedef struct	s_spr
 {
-	float		sp_centr_y;
-	float		sp_centr_x;
-	float 		sp_y1;
-	float 		sp_x1;
-	float		sp_left_y;
-	float		sp_left_x;
-	float		sp_right_y;
-	float		sp_right_x;
-	float 		cross_x;
-	float 		cross_y;
-	float 		centr_cross;
-	float		dist;
+	float		centr_y;
+	float		centr_x;
+	float		lft_y;
+	float		lft_x;
+	float		right_y;
+	float		right_x;
+	float 		crs_x;
+	float 		crs_y;
+	float 		cntr_to_crs;
 }				t_spr;
 
 
@@ -174,48 +166,27 @@ typedef struct	s_mlx
 	int			line_height;
 	int 		draw_start;
 	int 		draw_end;
-
-	int 		half_win;
-/*	t_sdf		*opts;
-
-	t_img		no_tex;
-	t_img		so_tex;
-	t_img		we_tex;
-	t_img		ea_tex;
-	t_img		sp_tex;
-	t_game		game;
-	t_sp		*sp_list;
-	*/
-
 }				t_mlx;
 
-
-
-
-
-
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-}               t_vars;
 
 int		ft_check_args(int argc, char **argv);
 int		ft_take_param(t_data *prm);
 int 	ft_take_param_2(char *temp, t_data *prm);
 int		ft_parser(char *argv, t_data *prm);
+int 	ft_check_files(t_data *prm);
 int		ft_make_array(t_data *prm, int str_n);
 int 	ft_free_array(char **arr, int str);
-int 	ft_chek_textur(t_data *prm);
+int 	ft_textr(t_data *prm);
 int		ft_check_file(char *argv, char *extension);
 int		ft_check_map(t_data *prm);
-int		ft_exit(t_data *prm);
+int			ft_exit(t_data *prm);
 
 
 void 	ft_base(t_data *prm);
 int		ft_key_on(int key, t_mlx *mlx);
 int		ft_key_off(int key, t_mlx *mlx);
 int 	ft_key_scan(t_mlx *mlx);
-int		ft_game_first_param(t_mlx *mlx);
+void		ft_game_first_param(t_mlx *mlx);
 int		ft_full_window(t_mlx *mlx);
 void 	ft_draw_map(t_mlx *mlx);
 void	ft_dist_and_dot_wall(t_mlx *mlx, int x);
@@ -225,6 +196,8 @@ void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void 	ft_print_line(t_mlx *mlx);
 void 	ft_ypos_and_color(t_mlx *mlx);
 void	ft_check_sprite(t_mlx *mlx, int x);
+int			ft_close(t_mlx *mlx);
+void		ft_screenshot(t_mlx *mlx);
 #endif
 
 

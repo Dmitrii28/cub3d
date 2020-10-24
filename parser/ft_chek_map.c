@@ -2,47 +2,6 @@
 
 #include "../cub3d.h"
 ///// proverit 4tobi bil 1 igrok na karte
-/*
-int ft_check_yacheik(char **array, int j, int i, int height_array)
-{
-
-
-	if (j == 0)
-	{
-		if (array[j][i] == ' ' && !(ft_strchr("1 ", array[j][i + 1])) && !(ft_strchr("1 ", array[j + 1][i])))
-			return (-1);
-		if(ft_strchr("02NSWE", array[j][i]))
-			return (-1);
-
-	}
-	else if (j == height_array)
-	{
-		if (array[j][i] == ' ' && !(ft_strchr("1 ", array[j][i + 1])) )
-			return (-1);
-		if(ft_strchr("02NSWE", array[j][i]))
-			return (-1);
-	}
-	else
-	{
-		if (array[j][i] == ' ' && !(ft_strchr("1 ", array[j][i + 1])) && !(ft_strchr("1 ", array[j + 1][i])))
-			return (-1);
-		if ((i == 0 || array[j][i + 1] == '\0') && ft_strchr("02NSWE", array[j][i]))
-			return (-1);
-
-	}
-	return (0);
-}
-
-*/
-
-
-
-
-
-
-
-
-
 
 int ft_check_cell(t_data *prm, int j, int i)
 {
@@ -94,5 +53,5 @@ int ft_check_map(t_data *prm)
 		}
 		j++;
 	}
-	return (0);
+	return (prm->exit = (prm->player == '0') ? 135 : 0);
 }
