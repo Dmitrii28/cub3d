@@ -38,7 +38,6 @@
 #  define KEY_D XK_d
 #  define KEY_LEFT XK_Left
 #  define KEY_RIGHT XK_Right
-#  define KEY_SHIFT_L XK_Shift_L
 
 
 #include "libft/libft.h"
@@ -69,13 +68,10 @@ typedef struct	s_key
 	int			d;
 	int			left;
 	int			right;
-	int 		shift;
 }				t_key;
 
 typedef struct	s_player
 {
-	float 		delta_x; //////////////////////////////////////// нада ???????
-	float 		delta_y; //////////////// для карты масштаб
 	float		pl_x;
 	float		pl_y;
 	float		walk_speed;
@@ -87,9 +83,9 @@ typedef struct	s_player
 	float 		tr;
 	double		cam_x;
 	double		cam_y;
-}				t_player;   //t_game
+}				t_player;
 
-typedef	struct	s_data
+typedef	struct	s_param
 {
     int			x_win;
     int			y_win;
@@ -110,7 +106,9 @@ typedef	struct	s_data
 	int 		play_y;
 	char		player;
 	int 		screenshot;
-}				t_data;
+	int 		err_n;
+}				t_param;
+
 typedef struct	s_wall
 {
 	int 		side;
@@ -139,12 +137,9 @@ typedef struct	s_spr
 	float 		cntr_to_crs;
 }				t_spr;
 
-
-
 typedef struct	s_mlx
 {
-	t_data		*prm;
-	int			exit;
+	t_param		*prm;
 	t_img		img;
 	t_img		wall_img;
 	t_img		no_img;
@@ -154,13 +149,12 @@ typedef struct	s_mlx
 	t_img		s_img;
 	t_wall		wall;
 	t_spr		spr;
-
+	t_player	pl;
+	t_key		key;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			x_win;
 	int			y_win;
-	t_player	pl;
-	t_key		key;
 	int 		fov;
 	float 		radian;
 	int			line_height;
@@ -170,31 +164,27 @@ typedef struct	s_mlx
 
 
 int		ft_check_args(int argc, char **argv);
-int		ft_take_param(t_data *prm);
-int 	ft_take_param_2(char *temp, t_data *prm);
-int		ft_parser(char *argv, t_data *prm);
-int 	ft_check_files(t_data *prm);
-int		ft_make_array(t_data *prm, int str_n);
+int		ft_take_param(t_param *prm);
+int 	ft_take_param_2(char *temp, t_param *prm);
+int		ft_parser(char *argv, t_param *prm);
+int 	ft_check_files(t_param *prm);
+int		ft_make_array(t_param *prm, int str_n);
 int 	ft_free_array(char **arr, int str);
-int 	ft_textr(t_data *prm);
 int		ft_check_file(char *argv, char *extension);
-int		ft_check_map(t_data *prm);
-int			ft_exit(t_data *prm);
+int		ft_check_map(t_param *prm);
+int			ft_exit(t_param *prm);
 
 
-void 	ft_base(t_data *prm);
+int 	ft_base(t_param *prm);
 int		ft_key_on(int key, t_mlx *mlx);
 int		ft_key_off(int key, t_mlx *mlx);
 int 	ft_key_scan(t_mlx *mlx);
 void		ft_game_first_param(t_mlx *mlx);
-int		ft_full_window(t_mlx *mlx);
-void 	ft_draw_map(t_mlx *mlx);
 void	ft_dist_and_dot_wall(t_mlx *mlx, int x);
-void		ft_draw_sky(t_mlx *mlx);
 int 	ft_xpm_to_img(t_mlx *mlx);
 void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void 	ft_print_line(t_mlx *mlx);
-void 	ft_ypos_and_color(t_mlx *mlx);
+void 	ft_y_pos_and_color(t_mlx *mlx);
 void	ft_check_sprite(t_mlx *mlx, int x);
 int			ft_close(t_mlx *mlx);
 void		ft_screenshot(t_mlx *mlx);

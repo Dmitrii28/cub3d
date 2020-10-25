@@ -3,7 +3,7 @@
 #include "../cub3d.h"
 ///// proverit 4tobi bil 1 igrok na karte
 
-int ft_check_cell(t_data *prm, int j, int i)
+int ft_check_cell(t_param *prm, int j, int i)
 {
 	if (j == 0 || j == prm->str_n - 1)
 		if(!(ft_strchr("1 ", prm->map_arr[j][i])))
@@ -28,7 +28,7 @@ int ft_check_cell(t_data *prm, int j, int i)
 		return (0);
 }
 
-int ft_check_map(t_data *prm)
+int ft_check_map(t_param *prm)
 { ////// (char **array, int height_array)
 	int     j;
 	int     i;

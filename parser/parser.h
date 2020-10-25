@@ -27,7 +27,6 @@ typedef struct	s_str
 	int	minus;
 	int	star_accuracy;
 	int	dot;
-	int	shift;
 	int	result;
 	int	width;
 	int	accur;

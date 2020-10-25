@@ -2,29 +2,29 @@
 
 #include "../cub3d.h"
 
-int 	ft_check_files(t_data *prm)
+int 	ft_check_files(t_param *prm)
 {
 	int	fd;
 
-	if ((fd = open(prm->no_txr, O_RDONLY)) < 0 || close(fd))
+	if ((fd = open(prm->no_txr, O_RDONLY)) < 0 || close(fd) < 0)
 		return (151);
-	if ((fd = open(prm->so_txr, O_RDONLY)) < 0 || close(fd))
+	if ((fd = open(prm->so_txr, O_RDONLY)) < 0 || close(fd) < 0)
 		return (152);
-	if ((fd = open(prm->we_txr, O_RDONLY)) < 0 || close(fd))
+	if ((fd = open(prm->we_txr, O_RDONLY)) < 0 || close(fd) < 0)
 		return (153);
-	if ((fd = open(prm->ea_txr, O_RDONLY)) < 0 || close(fd))
+	if ((fd = open(prm->ea_txr, O_RDONLY)) < 0 || close(fd) < 0)
 		return (154);
-	if ((fd = open(prm->s_txr, O_RDONLY)) < 0 || close(fd))
+	if ((fd = open(prm->s_txr, O_RDONLY)) < 0 || close(fd) < 0)
 		return (155);
-	if (ft_check_file(prm->no_txr, "xpm"))
+	if ((ft_check_file(prm->no_txr, "xpm")) == 1)
 		return (157);
-	if (ft_check_file(prm->so_txr, "xpm"))
+	if ((ft_check_file(prm->so_txr, "xpm")) == 1)
 		return (158);
-	if (ft_check_file(prm->we_txr, "xpm"))
+	if ((ft_check_file(prm->we_txr, "xpm")) == 1)
 		return (159);
-	if (ft_check_file(prm->ea_txr, "xpm"))
+	if ((ft_check_file(prm->ea_txr, "xpm")) == 1)
 		return (160);
-	if (ft_check_file(prm->s_txr, "xpm"))
+	if ((ft_check_file(prm->s_txr, "xpm")) == 1)
 		return (161);
 	return (0);
 
@@ -39,10 +39,11 @@ int 	ft_free_array(char **arr, int str)
 		str--;
 	}
 	free(arr);
+	arr = NULL;
 	return (100);
 }
 
-int		ft_realloc_line(t_data *prm, int str_n, int max_width)
+int		ft_realloc_line(t_param *prm, int str_n, int max_width)
 {
 	int		i;
 	int 	n;
@@ -71,16 +72,17 @@ int		ft_realloc_line(t_data *prm, int str_n, int max_width)
 	return (0);
 }
 
-int		ft_data_and_map(t_data *prm, int fd)
+int		ft_data_and_map(t_param *prm, int fd)
 {
 	int 	id;
 
 	while ((id = get_next_line(fd, &prm->line)) >= 0)
 	{
+		prm->err_n++;
 		printf("                                | # >%d< | | >%d< | >%s<\n", prm->str_n, id, prm->line);
 		if (prm->count_line == 8)
 		{
-			if ((prm->exit = ft_make_array(prm, prm->str_n)) >= 100)
+			if ((prm->exit = ft_make_array(prm, prm->str_n)) >= 100)///////
 				return (prm->exit); /// обработать ошибк
 			prm->str_n = (prm->exit == 0 ? prm->str_n + 1 : prm->str_n);
 			if (prm->line)
@@ -89,8 +91,6 @@ int		ft_data_and_map(t_data *prm, int fd)
 		if (prm->count_line < 8)
 			if ((prm->exit = ft_take_param(prm)))
 				return (prm->exit);
-		if (prm->count_line == 8 && !prm->str_n && (prm->exit = ft_textr(prm)))
-			return (prm->exit);
 		if (id == 0)
 			break ;
 	}
@@ -98,7 +98,7 @@ int		ft_data_and_map(t_data *prm, int fd)
 		return (prm->exit = 112); ///// мало ссылок на параметры в файле (выяснить чего не хватает?)
 	return (prm->exit = 0);
 }
-int ft_parser(char *argv, t_data *prm)
+int ft_parser(char *argv, t_param *prm)
 {
 	int		fd;
 	int		max_width;

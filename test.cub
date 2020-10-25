@@ -1,8 +1,9 @@
-R  680    580
+R 1156 764
 C 100,100,255
 F  66,66,66
 NO  /home/home/work/cub3d/my/textures/xpm/walls/64/colorstone.xpm
 SO  /home/home/work/cub3d/my/textures/xpm/walls/64/greystone.xpm
+hfghgh
 WE  /home/home/work/cub3d/my/textures/xpm/walls/64/mossy.xpm
 EA  /home/home/work/cub3d/my/textures/xpm/walls/64/redbrick.xpm
 S  /home/home/work/cub3d/my/textures/xpm/sprites/barrel.xpm

@@ -1,5 +1,5 @@
 #include "../cub3d.h"
-int 	ft_take_param_r(char *temp, t_data *prm, int i)
+int 	ft_take_param_r(char *temp, t_param *prm, int i)
 {
 	if (!(ft_strncmp(temp, "R ", 2)))
 	{
@@ -25,7 +25,7 @@ int 	ft_take_param_r(char *temp, t_data *prm, int i)
 		return (110);
 	return (0);
 }
-int		ft_final_color(char **arr, t_data *prm, char fc_color) ///// сделать универсальный
+int		ft_final_color(char **arr, t_param *prm, char fc_color) ///// сделать универсальный
 {
 	int	color_1;
 	int	color_2;
@@ -56,7 +56,7 @@ int		ft_final_color(char **arr, t_data *prm, char fc_color) ///// сделать
 	return (0); //////// много строк удалить printf
 }
 
-int 	ft_take_param_f(char *temp, t_data *prm, int i, int count_ch)
+int 	ft_take_param_f(char *temp, t_param *prm, int i, int count_ch)
 {
 	if (!(ft_strncmp(temp, "F ", 2)))
 	{
@@ -84,7 +84,7 @@ int 	ft_take_param_f(char *temp, t_data *prm, int i, int count_ch)
 	ft_free_array(prm->color_arr, 2);
 	return (0);
 }
-int 	ft_take_param_c(char *temp, t_data *prm, int i, int count_ch)
+int 	ft_take_param_c(char *temp, t_param *prm, int i, int count_ch)
 {
 	if (!(ft_strncmp(temp, "C ", 2)))
 	{
@@ -113,7 +113,7 @@ int 	ft_take_param_c(char *temp, t_data *prm, int i, int count_ch)
 	return (0);
 }
 
-int 	ft_take_param_2(char *temp, t_data *prm)
+int 	ft_take_param_2(char *temp, t_param *prm)
 {
 	int	i;
 	int	count_ch;
@@ -125,15 +125,17 @@ int 	ft_take_param_2(char *temp, t_data *prm)
 		if ((prm->exit = ft_take_param_r(temp, prm, i)))
 			return (prm->exit);
 	}
-	if (temp[0] == 'F')
+	else if (temp[0] == 'F')
 	{
 		if ((prm->exit = ft_take_param_f(temp, prm, i, count_ch)))
 			return (prm->exit);
 	}
-	if (temp[0] == 'C')
+	else if (temp[0] == 'C')
 	{
 		if ((prm->exit = ft_take_param_c(temp, prm, i, count_ch)))
 			return (prm->exit);
 	}
+	else
+		return(110);
 	return (0);
 }

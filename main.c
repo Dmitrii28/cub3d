@@ -12,7 +12,7 @@
 #include <zconf.h>
 #include "cub3d.h"
 
-int		ft_prm_fill(t_data *prm)
+int		ft_prm_fill(t_param *prm)
 {
 	prm->x_win = -1;
 	prm->y_win = -1;
@@ -32,39 +32,12 @@ int		ft_prm_fill(t_data *prm)
 	prm->play_x = 0;
 	prm->play_y = 0;
 	prm->screenshot = 0;
+	prm->err_n = 0;
 }
-int			ft_exit(t_data *prm)
-{
 
-
-
-
-	//ft_putstr_fd("Error\ncode #101: ' \n", 2);
-
-
-	printf("exit %d\n", prm->exit);
-
-	/*
-	ft_free_array(prm->map_arr, 5);
-//	free(prm.line);
-
-	free(prm->no_txr);
-	free(prm->so_txr);
-	free(prm->we_txr);
-	free(prm->ea_txr);
-	free(prm->s_txr);
-
-	*/
-	if (prm->exit < 0)
-	{
-		///// напечатать ошибку
-		ft_putstr_fd(strerror(errno), 2);
-	}
-		return (prm->exit);
-}
 int		main(int argc, char **argv)
 {
-    t_data	prm;
+    t_param	prm;
 
     ft_prm_fill(&prm);
 	if ((prm.exit = ft_check_args(argc, argv)) > 0)
@@ -78,5 +51,3 @@ int		main(int argc, char **argv)
 	ft_base(&prm);
 	return (0);
 }
-
-

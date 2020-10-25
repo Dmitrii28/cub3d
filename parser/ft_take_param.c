@@ -1,18 +1,7 @@
 # include "../cub3d.h"
-int 	ft_textr(t_data *prm)
-{
-	if ((ft_check_file(prm->no_txr, "xpm")) == 1 ||
-		(ft_check_file(prm->so_txr, "xpm")) == 1 ||
-		(ft_check_file(prm->we_txr, "xpm")) == 1 ||
-		(ft_check_file(prm->ea_txr, "xpm")) == 1 ||
-		(ft_check_file(prm->s_txr, "xpm")) == 1)
-	{
-		return (116); //////wrong   file extention texture
-	}
-	return (0);
-}
 
-int		ft_take_param_s(char *temp, t_data *prm)
+
+int		ft_take_param_s(char *temp, t_param *prm)
 {
 	if (temp[0] == 'S')
 	{
@@ -37,7 +26,7 @@ int		ft_take_param_s(char *temp, t_data *prm)
 	}
 	return (0);
 }
-int 	ft_take_param_no_we(char *temp, t_data *prm)
+int 	ft_take_param_no_we(char *temp, t_param *prm)
 {
 	if (temp[0] == 'N' || temp[0] == 'W')
 	{
@@ -62,7 +51,7 @@ int 	ft_take_param_no_we(char *temp, t_data *prm)
 	}
 	return (0);
 }
-int 	ft_take_param_ea(char *temp, t_data *prm)
+int 	ft_take_param_ea(char *temp, t_param *prm)
 {
 	if (temp[0] == 'E')
 	{
@@ -79,7 +68,7 @@ int 	ft_take_param_ea(char *temp, t_data *prm)
 	}
 	return (0);
 }
-int		ft_take_param(t_data *prm)
+int		ft_take_param(t_param *prm)
 {
 	char *temp;
 

@@ -1,7 +1,7 @@
 #include "../cub3d.h"
 
 
-int    ft_make_array(t_data *prm, int str_n)
+int    ft_make_array(t_param *prm, int str_n)
 {
 	char    **temp_arr;
 	int  i;
