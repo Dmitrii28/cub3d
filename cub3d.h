@@ -99,6 +99,7 @@ typedef	struct	s_param
     int 		count_line;
     char		**map_arr;
 	char		*line;
+	int 		m_len;
 	int			exit;
 	int 		str_n;
 	char 		**color_arr;
@@ -107,6 +108,8 @@ typedef	struct	s_param
 	char		player;
 	int 		screenshot;
 	int 		err_n;
+	int 		id;
+	int 		fd_err;
 }				t_param;
 
 typedef struct	s_wall
@@ -162,7 +165,6 @@ typedef struct	s_mlx
 	int 		draw_end;
 }				t_mlx;
 
-
 int		ft_check_args(int argc, char **argv);
 int		ft_take_param(t_param *prm);
 int 	ft_take_param_2(char *temp, t_param *prm);
@@ -173,6 +175,7 @@ int 	ft_free_array(char **arr, int str);
 int		ft_check_file(char *argv, char *extension);
 int		ft_check_map(t_param *prm);
 int			ft_exit(t_param *prm);
+int		ft_realloc_line(t_param *prm, int str_n, int max_width);
 
 
 int 	ft_base(t_param *prm);
@@ -186,7 +189,7 @@ void        my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void 	ft_print_line(t_mlx *mlx);
 void 	ft_y_pos_and_color(t_mlx *mlx);
 void	ft_check_sprite(t_mlx *mlx, int x);
-int			ft_close(t_mlx *mlx);
+int			ft_clear_close(t_mlx *mlx);
 void		ft_screenshot(t_mlx *mlx);
 #endif
 

@@ -1,16 +1,16 @@
 R 1156 764
 C 100,100,255
-F  66,66,66
+F 66,66,66
 NO  /home/home/work/cub3d/my/textures/xpm/walls/64/colorstone.xpm
-SO  /home/home/work/cub3d/my/textures/xpm/walls/64/greystone.xpm
-hfghgh
+SO /home/home/work/cub3d/my/textures/xpm/walls/64/greystone.xpm
 WE  /home/home/work/cub3d/my/textures/xpm/walls/64/mossy.xpm
 EA  /home/home/work/cub3d/my/textures/xpm/walls/64/redbrick.xpm
 S  /home/home/work/cub3d/my/textures/xpm/sprites/barrel.xpm
 
 
+
 1111111111111111111111111111 1111111111111111
-1000000000000000000000000000100002000200000021
+1000000000000000000000000000100002000200000001
 1000000000000000000000000000100000000000000001
 1000001111111111110000000000100000000000000021
 11111111        100000000000000000N00100011111

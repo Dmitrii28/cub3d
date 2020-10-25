@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void 	ft_ypos_and_color(t_mlx *mlx)
+void 	ft_y_pos_and_color(t_mlx *mlx)
 {
 	mlx->wall.tex_y = (int)mlx->wall.img_pos & (mlx->wall_img.height - 1);
 	mlx->wall.color = *(int*)(mlx->wall_img.addr + ((mlx->wall.tex_x +
@@ -42,7 +42,7 @@ void 	ft_print_line(t_mlx *mlx)
 	int y;
 
 	x = 0;
-	while (x <= mlx->x_win)
+	while (x < mlx->x_win)
 	{
 		ft_dist_and_dot_wall(mlx, x);
 		y = 0;
@@ -51,7 +51,7 @@ void 	ft_print_line(t_mlx *mlx)
 		ft_img_pos_and_step(mlx, mlx->line_height, mlx->draw_start);
 		while (y <= mlx->draw_end)
 		{
-			ft_ypos_and_color(mlx);
+			ft_y_pos_and_color(mlx);
 			mlx->wall.img_pos += mlx->wall.img_step;
 			my_mlx_pixel_put(&mlx->img, x, y++, mlx->wall.color);
 		}

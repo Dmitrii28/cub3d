@@ -17,7 +17,7 @@
 # include <fcntl.h>
 #include "../cub3d.h"
 
-int	ft_check_args(int argc, char **argv);
+
 
 typedef struct	s_str
 {

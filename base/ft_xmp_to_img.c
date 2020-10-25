@@ -1,6 +1,18 @@
 #include "../cub3d.h"
-
-int 	ft_img_id_to_addr(t_mlx *mlx)
+static	void ft_free_xpm(t_param *prm)
+{
+	free(prm->no_txr);
+	prm->no_txr = NULL;
+	free(prm->so_txr);
+	prm->so_txr = NULL;
+	free(prm->we_txr);
+	prm->we_txr = NULL;
+	free(prm->ea_txr);
+	prm->ea_txr = NULL;
+	free(prm->s_txr);
+	prm->s_txr = NULL;
+}
+static	int 	ft_img_id_to_addr(t_mlx *mlx)
 {
 	if (!(mlx->no_img.addr = mlx_get_data_addr(mlx->no_img.img_ptr,
 		&mlx->no_img.bits_per_pixel, &mlx->no_img.line_len,
@@ -42,5 +54,6 @@ int 	ft_xpm_to_img(t_mlx *mlx)
 	if (!(mlx->s_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
 	  mlx->prm->s_txr, &mlx->s_img.width, &mlx->s_img.height)))
 		return (204);
+	ft_free_xpm(mlx->prm);
 	return (ft_img_id_to_addr(mlx));
 }

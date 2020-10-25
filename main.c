@@ -27,12 +27,16 @@ int		ft_prm_fill(t_param *prm)
 	prm->exit = 0;
 	prm->count_line = 0;
 	prm->str_n = 0;
+	prm->m_len = 0;
 	prm->color_arr = NULL;
+	prm->line = NULL;
 	prm->player = '0';
 	prm->play_x = 0;
 	prm->play_y = 0;
 	prm->screenshot = 0;
 	prm->err_n = 0;
+	prm->id = 0;
+	prm->fd_err = 0;
 }
 
 int		main(int argc, char **argv)
@@ -40,8 +44,11 @@ int		main(int argc, char **argv)
     t_param	prm;
 
     ft_prm_fill(&prm);
-	if ((prm.exit = ft_check_args(argc, argv)) > 0)
+	if ((prm.exit = ft_check_args(argc, argv)) != 0)
+	{
+		prm.fd_err = prm.exit;
 		return (ft_exit(&prm));
+	}
 	if ((prm.exit = ft_parser(argv[1], &prm)))
 		return (ft_exit(&prm));
 	if ((prm.exit = ft_check_files(&prm)))

@@ -36,7 +36,7 @@ void        my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void 	ft_base(t_data *prm)
+int 	ft_base(t_param *prm)
 {////////////////////выходим от сюде не через ретерн а другую функцию
 	t_mlx	mlx;
 	mlx.prm  = prm;
@@ -45,11 +45,11 @@ void 	ft_base(t_data *prm)
 	if (!(mlx.mlx_ptr = mlx_init()))
 		return (200); ////// ошибка инициализации mlx
 	ft_game_first_param(&mlx);
-	if ((mlx.exit = ft_start_win_and_xpm_to_img(&mlx)))
+	if ((mlx.prm->exit = ft_start_win_and_xpm_to_img(&mlx)))
 		ft_exit_game(&mlx);
 	if (prm->screenshot)
 		ft_screenshot(&mlx);
-	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
+	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_clear_close, &mlx);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, ft_key_on, &mlx);
 	mlx_hook(mlx.win_ptr, 3, 1L << 1, ft_key_off, &mlx);
 	mlx_loop_hook(mlx.mlx_ptr, ft_key_scan, &mlx);

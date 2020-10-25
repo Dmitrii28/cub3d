@@ -43,107 +43,70 @@ int 	ft_free_array(char **arr, int str)
 	return (100);
 }
 
-int		ft_realloc_line(t_param *prm, int str_n, int max_width)
-{
-	int		i;
-	int 	n;
-	char    **temp;
-
-	n = 0;
-	if (!(temp = (char**)malloc(((str_n) + 1) * sizeof(char *))))
-		return (100); ////// ошибка маллока
-	while (n < str_n)
-	{
-		if (!(temp[n] = (char*)malloc((max_width + 1) * sizeof(char))))
-			return (ft_free_array(temp, n - 1)); /////// возвращает 100 ошибка маллока
-		i = 0;
-		while (prm->map_arr[n][i])
-		{
-			temp[n][i++] = prm->map_arr[n][i];
-		}
-		while (i < max_width)
-			temp[n][i++] = ' ';
-		temp[n++][i] = '\0';
-	}
-	temp[n] = NULL;
-	ft_free_array(prm->map_arr, n - 1);
-	prm->map_arr = temp;
-	temp = NULL;
-	return (0);
-}
-
 int		ft_data_and_map(t_param *prm, int fd)
 {
-	int 	id;
-
-	while ((id = get_next_line(fd, &prm->line)) >= 0)
+	while ((prm->id = get_next_line(fd, &prm->line)) >= 0)
 	{
-		prm->err_n++;
-		printf("                                | # >%d< | | >%d< | >%s<\n", prm->str_n, id, prm->line);
 		if (prm->count_line == 8)
 		{
 			if ((prm->exit = ft_make_array(prm, prm->str_n)) >= 100)///////
 				return (prm->exit); /// обработать ошибк
 			prm->str_n = (prm->exit == 0 ? prm->str_n + 1 : prm->str_n);
-			if (prm->line)
-				free(prm->line);
 		}
-		if (prm->count_line < 8)
-			if ((prm->exit = ft_take_param(prm)))
+		printf("                                | # >%d< | | >%d< | >%s<\n", prm->str_n, prm->id, prm->line);
+		if (prm->count_line < 8) {
+			if (ft_take_param(prm))
 				return (prm->exit);
-		if (id == 0)
+		}
+		if (prm->line)
+			free(prm->line);
+		if (prm->id == 0)
 			break ;
+		prm->err_n++;
 	}
-	if (id == 0 && prm->count_line < 8)
+	prm->line = NULL;
+	if (prm->id < 0)
+		return (prm->exit = prm->id); //// ошибки в ГНЛ -1 и -10
+	if (prm->id == 0 && prm->count_line < 8)
 		return (prm->exit = 112); ///// мало ссылок на параметры в файле (выяснить чего не хватает?)
 	return (prm->exit = 0);
 }
 int ft_parser(char *argv, t_param *prm)
 {
 	int		fd;
-	int		max_width;
-	int 	temp_width;
-	int 	i;
+	int 	str;
 
-	i = 0;
-	max_width = 0;
-	if ((fd = open(argv, O_RDONLY)) < 0)   ///// obrabotat oshibky
-		return (fd);
+	str = 0;
+	if ((prm->fd_err = (fd = open(argv, O_RDONLY))) < 0)   ///// obrabotat oshibky
+		return (156);
 	if((prm->exit = ft_data_and_map(prm, fd)))
 		return (prm->exit);
 	if (prm->str_n < 3)
 		return (131);
-	while (prm->str_n > i)
+	while (prm->map_arr[str])
 	{
-		printf("------- str %d prm->map_arr >%s<\n", i, prm->map_arr[i]);////////////////
-		temp_width = ft_strlen(prm->map_arr[i]);
-		max_width = (max_width < temp_width) ? temp_width : max_width;
-		i++;
-	}
-	if((prm->exit = ft_realloc_line(prm, i, max_width)))
-		return (prm->exit);
-	if((prm->exit = ft_check_map(prm)))
-		return (prm->exit);
+		//if (ft_strlen(prm->map_arr[str]) == 0)
 
-	printf("!!! NO >%s<\n", prm->no_txr);
-	printf("!!! SO >%s<\n", prm->so_txr);
-	printf("!!! WE >%s<\n", prm->we_txr);
-	printf("!!! EA >%s<\n", prm->ea_txr);
-	printf("!!! S >%s<\n", prm->s_txr);
-	printf("x-win %d\n", prm->x_win);
-	printf("y-win %d\n", prm->y_win);
-	printf("floor %x\n", prm->floor);
-	printf("ceiling %x\n", prm->ceiling);
+		str++;
+	}
+	//if((prm->exit = ft_realloc_line(prm, prm->str_n, prm->m_len)))//////////////////////
+		//return (prm->exit);
+	if((prm->exit = ft_check_map(prm)))//////////////////////////////
+		return (prm->exit);
+	if (close(fd) < 0)
+		ft_putstr_fd(strerror(errno), fd);
+
+
 	prm->str_n = 0;
 	if (prm->map_arr)
 	{
 		while (prm->map_arr[prm->str_n] != NULL)
 		{
-			//printf("!!! >%s<\n", prm->map_arr[prm->str_n]);
+			printf("!!! >%s<\n", prm->map_arr[prm->str_n]);
 			prm->str_n++;
 		}
 	}
 	else
 		printf("!!! >%s<\n", "exit - массив не создан");
-	return ((close(fd) < 0) ? 150 : 0);
+	return (0);
 }

@@ -34,12 +34,12 @@ int			ft_exit(t_param *prm)
 	if (prm->exit < 0)
 	{
 		///// напечатать ошибку
-		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(strerror(errno), 2); /////////вставить fd
 	}
 	return (prm->exit);
 }
 
-int			ft_close(t_mlx *mlx)
+int			ft_clear_close(t_mlx *mlx)
 {
 	/////t_sp		*sp_tmp;
 

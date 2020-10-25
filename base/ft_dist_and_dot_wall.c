@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-static	void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_data *prm)
+static	void 	ft_check_wall(t_mlx *mlx, float x, float dlt, t_param *prm)
 {
 	int y_delt;
 	int y_crd;
@@ -58,7 +58,7 @@ void	ft_dist_and_dot_wall(t_mlx *mlx, int x)
 	ft_calc_dist(mlx);
 
 
-	printf("x %f y %f \n", mlx->pl.pl_x, mlx->pl.pl_y);
+	//printf("x %f y %f \n", mlx->pl.pl_x, mlx->pl.pl_y);
 
 
 

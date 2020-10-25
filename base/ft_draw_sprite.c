@@ -30,7 +30,7 @@ static	void 	ft_draw_sprite(t_mlx *mlx, int x)
 	ft_img_pos_and_step_sprite(mlx, line_height, draw_start);
 	while (y <= draw_end)
 	{
-		ft_ypos_and_color(mlx);
+		ft_y_pos_and_color(mlx);
 		mlx->wall.img_pos += mlx->wall.img_step;
 		if (mlx->wall.color != 0x000000)
 			my_mlx_pixel_put(&mlx->img, x, y, mlx->wall.color);
