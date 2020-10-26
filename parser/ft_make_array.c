@@ -1,4 +1,5 @@
 #include "../cub3d.h"
+/*
 static 	char	*ft_copy_line(char *temp, char *orig, int max_width)
 {
 	int i;
@@ -39,14 +40,35 @@ int		ft_realloc_line(t_param *prm, int str_n, int max_width)
 	temp = NULL;
 	return (0);
 }
+*/
+char **ft_copy_arr(char **arr, int str_n, int old_str)
+{
+	char **new;
+	int i;
+	int len;
+
+	i = 0;
+	if (!(new = (char**)malloc((str_n) * sizeof(char*))))
+		return (NULL);
+	while (i < old_str && arr[i] && arr)
+	{
+		len = ft_strlen(arr[i]);
+		if (!(new[i] = (char*)malloc((len) * sizeof(char))))
+		{
+			ft_free_array(new, i - 1);
+			return (NULL);
+		}
+		new[i] = ft_strdup(arr[i]);
+		i++;
+	}
+	return (new);
+}
 
 int    ft_make_array(t_param *prm, int str_n)
 {
 	char    **temp_arr;
-	int  	i;
 	int 	len;
 
-	i = -1;
 	len = ft_strlen(prm->line);
 	if (len == 0 && str_n == 0)
 		return (1);
@@ -55,26 +77,17 @@ int    ft_make_array(t_param *prm, int str_n)
 		return (90);
 	if (len > 0 && prm->exit == 90)
 		return (130); ///// пустая строка в карте
-	if (!(temp_arr = (char**)malloc((str_n + 2) * sizeof(char*))))
+	if (!(temp_arr = ft_copy_arr(prm->map_arr, str_n + 1, str_n)))
 		return (100);
-	while (++i < str_n)
-		temp_arr[i] = prm->map_arr[i];
-	temp_arr[i++] = ft_strdup(prm->line);
-	temp_arr[i] = NULL;
+	if (!(temp_arr[str_n] = ft_strdup(prm->line)))
+		return (ft_free_array(temp_arr, str_n - 1));
 	if (prm->map_arr)
-		free(prm->map_arr);
-
-
-
-	if (!(prm->map_arr = (char**)malloc((str_n + 2) * sizeof(char*))))
-		return (ft_free_array(temp_arr, str_n + 2));
-
-
-
-
-	prm->map_arr = temp_arr;
-	//free(temp_arr);
-	temp_arr = NULL;
+		ft_free_array(prm->map_arr, str_n - 1);
+	if (!(prm->map_arr = ft_copy_arr(temp_arr, str_n + 2, str_n + 1)))
+		return (ft_free_array(temp_arr, str_n - 1));
+	str_n++;
+	prm->map_arr[str_n] = NULL;
+	ft_free_array(temp_arr, str_n - 1);
 	return (0);
 }
 

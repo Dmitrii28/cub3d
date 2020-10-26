@@ -74,21 +74,13 @@ int		ft_data_and_map(t_param *prm, int fd)
 int ft_parser(char *argv, t_param *prm)
 {
 	int		fd;
-	int 	str;
 
-	str = 0;
 	if ((prm->fd_err = (fd = open(argv, O_RDONLY))) < 0)   ///// obrabotat oshibky
 		return (156);
 	if((prm->exit = ft_data_and_map(prm, fd)))
 		return (prm->exit);
 	if (prm->str_n < 3)
 		return (131);
-	while (prm->map_arr[str])
-	{
-		//if (ft_strlen(prm->map_arr[str]) == 0)
-
-		str++;
-	}
 	//if((prm->exit = ft_realloc_line(prm, prm->str_n, prm->m_len)))//////////////////////
 		//return (prm->exit);
 	if((prm->exit = ft_check_map(prm)))//////////////////////////////
