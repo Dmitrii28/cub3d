@@ -16,7 +16,7 @@ static void	ft_make_bmp(t_mlx *mlx, char *header,	char *dib_header, int fd)
 		mlx->y_win--;
 	}
 	if (close(fd) < 0)
-		mlx->prm->exit = 171;
+		mlx->prm.exit = 171;
 	ft_putstr_fd("Screenshot done\n", 1);
 	ft_clear_close(mlx);
 }
@@ -57,7 +57,8 @@ void		ft_screenshot(t_mlx *mlx)
 	ft_bzero(dib_header, 40);
 	if ((fd = open("screenshot.bmp", O_WRONLY | O_CREAT, 0666)) < 0)
 	{
-		mlx->prm->exit = 170;
+		mlx->prm.fd_err = fd;
+		mlx->prm.exit = 170;
 		ft_clear_close(mlx);
 	}
 	ft_print_line(mlx);

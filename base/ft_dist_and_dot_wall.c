@@ -30,20 +30,20 @@ static	void 	ft_calc_dist(t_mlx *mlx)
 	x = 0;
 	while (dlt >= 0.0009)
 	{
-		if (ft_strchr("0NSWE2", mlx->prm->map_arr
+		if (ft_strchr("0NSWE2", mlx->prm.map_arr
 			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
 			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
-			(ft_strchr("0NSWE2", mlx->prm->map_arr
+			(ft_strchr("0NSWE2", mlx->prm.map_arr
 			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x))]
 			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x + dlt))]) &&
-			ft_strchr("0NSWE2", mlx->prm->map_arr
+			ft_strchr("0NSWE2", mlx->prm.map_arr
 			[(int)(mlx->pl.pl_y + mlx->pl.ray_y * (x + dlt))]
 			[(int)(mlx->pl.pl_x + mlx->pl.ray_x * (x))])))
 			x += dlt;
 		else
 			dlt = dlt / 10;
 	}
-	ft_check_wall(mlx, x, dlt * 10, mlx->prm);
+	ft_check_wall(mlx, x, dlt * 10, &mlx->prm);
 	mlx->wall.delta_dist = x;
 }
 

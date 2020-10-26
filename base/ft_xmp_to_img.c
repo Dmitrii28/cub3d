@@ -40,20 +40,20 @@ static	int 	ft_img_id_to_addr(t_mlx *mlx)
 int 	ft_xpm_to_img(t_mlx *mlx)
 {
 	if (!(mlx->no_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	   mlx->prm->no_txr, &mlx->no_img.width, &mlx->no_img.height)))
+	   mlx->prm.no_txr, &mlx->no_img.width, &mlx->no_img.height)))
 		return (200);
 	if (!(mlx->so_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	   mlx->prm->so_txr, &mlx->so_img.width, &mlx->so_img.height)))
+	   mlx->prm.so_txr, &mlx->so_img.width, &mlx->so_img.height)))
 		return (201);
 	if (!(mlx->we_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	   mlx->prm->we_txr, &mlx->we_img.width, &mlx->we_img.height)))
+	   mlx->prm.we_txr, &mlx->we_img.width, &mlx->we_img.height)))
 		return (202);
 	if (!(mlx->ea_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	   mlx->prm->ea_txr, &mlx->ea_img.width, &mlx->ea_img.height)))
+	   mlx->prm.ea_txr, &mlx->ea_img.width, &mlx->ea_img.height)))
 		return (203);
 	if (!(mlx->s_img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	  mlx->prm->s_txr, &mlx->s_img.width, &mlx->s_img.height)))
+	  mlx->prm.s_txr, &mlx->s_img.width, &mlx->s_img.height)))
 		return (204);
-	ft_free_xpm(mlx->prm);
+	ft_free_xpm(&mlx->prm);
 	return (ft_img_id_to_addr(mlx));
 }

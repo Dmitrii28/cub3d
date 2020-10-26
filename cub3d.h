@@ -174,11 +174,9 @@ int		ft_make_array(t_param *prm, int str_n);
 int 	ft_free_array(char **arr, int str);
 int		ft_check_file(char *argv, char *extension);
 int		ft_check_map(t_param *prm);
-int			ft_exit(t_param *prm);
-int		ft_realloc_line(t_param *prm, int str_n, int max_width);
 
 
-int 	ft_base(t_param *prm);
+int 	ft_base(t_mlx *mlx);
 int		ft_key_on(int key, t_mlx *mlx);
 int		ft_key_off(int key, t_mlx *mlx);
 int 	ft_key_scan(t_mlx *mlx);
@@ -191,6 +189,7 @@ void 	ft_y_pos_and_color(t_mlx *mlx);
 void	ft_check_sprite(t_mlx *mlx, int x);
 int			ft_clear_close(t_mlx *mlx);
 void		ft_screenshot(t_mlx *mlx);
+void	ft_error(t_param *prm);
 #endif
 
 

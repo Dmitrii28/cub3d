@@ -2,23 +2,23 @@
 void	ft_forward_and_back(t_mlx *mlx, int trend)
 {
 
-	if (ft_strchr("0NSWE", mlx->prm->map_arr[(int)mlx->pl.pl_y]
+	if (ft_strchr("0NSWE", mlx->prm.map_arr[(int)mlx->pl.pl_y]
 	[(int)(mlx->pl.pl_x + trend * (mlx->pl.trend_x * (mlx->pl.walk_speed + 0.3)))]))
 		mlx->pl.pl_x += trend * (mlx->pl.trend_x * mlx->pl.walk_speed);
 	if (ft_strchr("0NSWE",
-				  mlx->prm->map_arr[(int)(mlx->pl.pl_y + trend * (mlx->pl.trend_y * (mlx->pl.walk_speed + 0.3)))]
+				  mlx->prm.map_arr[(int)(mlx->pl.pl_y + trend * (mlx->pl.trend_y * (mlx->pl.walk_speed + 0.3)))]
 				  [(int)mlx->pl.pl_x]))
 		mlx->pl.pl_y += trend * (mlx->pl.trend_y * mlx->pl.walk_speed);
 
 }
 void	ft_strafe(t_mlx *mlx, int trend)
 {
-	if (ft_strchr("0NSWE", mlx->prm->map_arr[(int)mlx->pl.pl_y]
+	if (ft_strchr("0NSWE", mlx->prm.map_arr[(int)mlx->pl.pl_y]
 	[(int)(mlx->pl.pl_x + trend * (mlx->pl.cam_x *
 								   (mlx->pl.walk_speed + 0.3)))]))
 		mlx->pl.pl_x += trend * (mlx->pl.cam_x * mlx->pl.walk_speed);
 
-	if (ft_strchr("0NSWE", mlx->prm->map_arr[(int)(mlx->pl.pl_y +
+	if (ft_strchr("0NSWE", mlx->prm.map_arr[(int)(mlx->pl.pl_y +
 												   trend * (mlx->pl.cam_y * (mlx->pl.walk_speed + 0.3)))][(int)mlx->pl.pl_x]))
 		mlx->pl.pl_y += trend * (mlx->pl.cam_y * mlx->pl.walk_speed);
 }

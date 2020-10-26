@@ -47,7 +47,7 @@ void 	ft_print_line(t_mlx *mlx)
 		ft_dist_and_dot_wall(mlx, x);
 		y = 0;
 		while (y < mlx->draw_start)
-			my_mlx_pixel_put(&mlx->img, x, y++, mlx->prm->ceiling);
+			my_mlx_pixel_put(&mlx->img, x, y++, mlx->prm.ceiling);
 		ft_img_pos_and_step(mlx, mlx->line_height, mlx->draw_start);
 		while (y <= mlx->draw_end)
 		{
@@ -57,7 +57,7 @@ void 	ft_print_line(t_mlx *mlx)
 		}
 		y--;
 		while (y < mlx->y_win)
-			my_mlx_pixel_put(&mlx->img, x, y++, mlx->prm->floor);
+			my_mlx_pixel_put(&mlx->img, x, y++, mlx->prm.floor);
 		ft_check_sprite(mlx, x);
 		x++;
 	}

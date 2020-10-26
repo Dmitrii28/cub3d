@@ -40,10 +40,7 @@ int	ft_check_args(int argc, char **argv)
 	if ((ft_check_file(argv[1], "cub")) == 1) // уточнить, может больше или равно
 		return (88); //////wrong name file
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		return (156);
-
-//	if ((prm->fd_err = (fd = open(argv, O_RDONLY))) < 0)
-	//	return (156);
+		return (fd);
 	if (close(fd) < 0)
 		ft_putstr_fd(strerror(errno), fd);
 	if (argc == 3)

@@ -93,7 +93,7 @@ void	ft_check_sprite(t_mlx *mlx, int x)
 	while (mlx->wall.delta_dist > 0.1) {
 		y1 = (mlx->pl.pl_y + mlx->pl.ray_y * (mlx->wall.delta_dist));
 		x1 = (mlx->pl.pl_x + mlx->pl.ray_x * (mlx->wall.delta_dist));
-		if (mlx->prm->map_arr[(int) y1][(int) x1] == '2')
+		if (mlx->prm.map_arr[(int) y1][(int) x1] == '2')
 		{
 			ft_sprite_line(mlx, x1, y1);
 			if (ft_find_crs_and_dist_to_center(mlx, x1, y1))
