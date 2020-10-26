@@ -142,7 +142,7 @@ typedef struct	s_spr
 
 typedef struct	s_mlx
 {
-	t_param		*prm;
+	t_param		prm;
 	t_img		img;
 	t_img		wall_img;
 	t_img		no_img;

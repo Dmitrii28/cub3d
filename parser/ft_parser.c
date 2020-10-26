@@ -53,18 +53,19 @@ int		ft_data_and_map(t_param *prm, int fd)
 				return (prm->exit); /// обработать ошибк
 			prm->str_n = (prm->exit == 0 ? prm->str_n + 1 : prm->str_n);
 		}
-		printf("                                | # >%d< | | >%d< | >%s<\n", prm->str_n, prm->id, prm->line);
-		if (prm->count_line < 8) {
+		//printf("                                | # >%d< | | >%d< | >%s<\n", prm->str_n, prm->id, prm->line);
+		if (prm->count_line < 8)
 			if (ft_take_param(prm))
 				return (prm->exit);
-		}
 		if (prm->line)
+		{
 			free(prm->line);
+			prm->line = NULL;
+		}
 		if (prm->id == 0)
 			break ;
 		prm->err_n++;
 	}
-	prm->line = NULL;
 	if (prm->id < 0)
 		return (prm->exit = prm->id); //// ошибки в ГНЛ -1 и -10
 	if (prm->id == 0 && prm->count_line < 8)
@@ -81,23 +82,10 @@ int ft_parser(char *argv, t_param *prm)
 		return (prm->exit);
 	if (prm->str_n < 3)
 		return (131);
-	//if((prm->exit = ft_realloc_line(prm, prm->str_n, prm->m_len)))//////////////////////
-		//return (prm->exit);
 	if((prm->exit = ft_check_map(prm)))//////////////////////////////
 		return (prm->exit);
 	if (close(fd) < 0)
 		ft_putstr_fd(strerror(errno), fd);
-
-
-	prm->str_n = 0;
-	if (prm->map_arr)
-	{
-		while (prm->map_arr[prm->str_n] != NULL)
-		{
-			printf("!!! >%s<\n", prm->map_arr[prm->str_n]);
-			prm->str_n++;
-		}
-	}
 	else
 		printf("!!! >%s<\n", "exit - массив не создан");
 	return (0);

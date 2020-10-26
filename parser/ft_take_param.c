@@ -70,6 +70,11 @@ int 	ft_take_param_ea(char *temp, t_param *prm)
 }
 int		ft_take_param(t_param *prm)
 {
+	int i;
+	i = ft_strlen(prm->line) - 1;
+
+	if (i >= 0 && (prm->line[i] == ' ' || prm->line[0] == ' '))
+		return (prm->exit = 109); ///// пробелы в строках
 	if (ft_strchr("CRWSECFN", prm->line[0]))
 	{
 		if (ft_take_param_no_we(prm->line, prm))

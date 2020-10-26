@@ -41,20 +41,21 @@ int		ft_prm_fill(t_param *prm)
 
 int		main(int argc, char **argv)
 {
-    t_param	prm;
+    //t_param	prm;
+    t_mlx mlx;
 
-    ft_prm_fill(&prm);
-	if ((prm.exit = ft_check_args(argc, argv)) != 0)
+    ft_prm_fill(&mlx.prm);
+	if ((mlx.prm.exit = ft_check_args(argc, argv)) != 0)
 	{
-		prm.fd_err = prm.exit;
-		return (ft_exit(&prm));
+		mlx.prm.fd_err = mlx.prm.exit;
+		return (ft_exit(&mlx.prm));
 	}
-	if ((prm.exit = ft_parser(argv[1], &prm)))
-		return (ft_exit(&prm));
-	if ((prm.exit = ft_check_files(&prm)))
-		return (ft_exit(&prm));
+	if ((mlx.prm.exit = ft_parser(argv[1], &mlx.prm)))
+		return (ft_exit(&mlx.prm));
+	if ((mlx.prm.exit = ft_check_files(&mlx.prm)))
+		return (ft_exit(&mlx.prm));
 	if (argc == 3)
-		prm.screenshot = 1;
-	ft_base(&prm);
+		mlx.prm.screenshot = 1;
+	ft_base(&mlx.prm);
 	return (0);
 }
